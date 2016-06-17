@@ -4,7 +4,7 @@ namespace PabloLovera\ModulesLaravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class ConsoleServiceProvider extends ServiceProvider
+class ModulesServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
