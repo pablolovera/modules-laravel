@@ -45,6 +45,8 @@ make:module <module-name>
 
 So... created in `app/Modules/<module-name>`
 
+When a new module is created, you need add provider in `config/app.php`, like a `App\Modules\<module-name>\Providers\<module-name>ServiceProvider::class,`
+
 ##### Create Controller for existing module
 ```
 module:make-controller <controller-name> <module-name>
