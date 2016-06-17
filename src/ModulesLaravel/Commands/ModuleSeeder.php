@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Core\Console\Commands;
+namespace PabloLovera\ModulesLaravel\Commands;
 
 use Illuminate\Console\Command;
+use PabloLovera\ModulesLaravel\Traits\CommandTrait;
 
 class ModuleSeeder extends Command
 {
     use CommandTrait;
+
     /**
      * The name and signature of the console command.
      *
@@ -19,8 +21,13 @@ class ModuleSeeder extends Command
      *
      * @var string
      */
-    protected $description = 'Make a new Seed for a module';
+    protected $description = 'Create a new Seed for a module';
 
+    /**
+     * The stub name
+     *
+     * @var string
+     * */
     protected $stub = 'seeder';
 
     /**

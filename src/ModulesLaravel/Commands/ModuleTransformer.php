@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Core\Console\Commands;
+namespace PabloLovera\ModulesLaravel\Commands;
 
 use Illuminate\Console\Command;
+use PabloLovera\ModulesLaravel\Traits\CommandTrait;
 
 class ModuleTransformer extends Command
 {
     use CommandTrait;
+
     /**
      * The name and signature of the console command.
      *
@@ -19,8 +21,13 @@ class ModuleTransformer extends Command
      *
      * @var string
      */
-    protected $description = 'Make a new Transformer extending of Abstract Transformer';
+    protected $description = 'Create a new Transformer extending of Abstract Transformer';
 
+    /**
+     * The stub name
+     *
+     * @var string
+     * */
     protected $stub = 'transformer';
 
     /**

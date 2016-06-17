@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Core\Console\Commands;
+namespace PabloLovera\ModulesLaravel\Commands;
 
 use Illuminate\Console\Command;
+use PabloLovera\ModulesLaravel\Traits\CommandTrait;
 
 class ModuleRoutes extends Command
 {
     use CommandTrait;
+
     /**
      * The name and signature of the console command.
      *
@@ -19,8 +21,13 @@ class ModuleRoutes extends Command
      *
      * @var string
      */
-    protected $description = 'Make a new Router for module';
+    protected $description = 'Create a new Router for module';
 
+    /**
+     * The stub name
+     *
+     * @var string
+     * */
     protected $stub = 'routes';
 
     /**

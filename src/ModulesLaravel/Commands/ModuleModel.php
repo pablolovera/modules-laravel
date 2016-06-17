@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Core\Console\Commands;
+namespace PabloLovera\ModulesLaravel\Commands;
 
 use Illuminate\Console\Command;
+use PabloLovera\ModulesLaravel\Traits\CommandTrait;
 
 class ModuleModel extends Command
 {
     use CommandTrait;
+
     /**
      * The name and signature of the console command.
      *
@@ -19,8 +21,13 @@ class ModuleModel extends Command
      *
      * @var string
      */
-    protected $description = 'Make a new Model extending of Core module';
+    protected $description = 'Create a new Model extending of Core module';
 
+    /**
+     * The stub name
+     *
+     * @var string
+     * */
     protected $stub = 'model';
 
     /**

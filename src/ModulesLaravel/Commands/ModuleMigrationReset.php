@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Core\Console\Commands;
+namespace PabloLovera\ModulesLaravel\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
+use PabloLovera\ModulesLaravel\Traits\CommandTrait;
 
 class ModuleMigrationReset extends Command
 {
     use CommandTrait;
+
     /**
      * The name and signature of the console command.
      *

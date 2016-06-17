@@ -1,0 +1,125 @@
+<?php
+
+namespace App\Core\Traits;
+
+trait Common
+{
+    /**
+     * @param $date
+     * @return array|string
+     */
+    public function convertDate($date)
+    {
+        $date = explode('/', $date);
+        $date = collect($date)->reverse()->implode('-');
+
+        return $date;
+    }
+
+    /**
+     * @param $slug
+     * @return mixed
+     */
+    public function slugToPath($slug)
+    {
+        return str_replace('-', '/', $slug);
+    }
+
+    /**
+     * @param $tel
+     * @return mixed|null
+     */
+    public function cleanTelephoneMask($tel)
+    {
+        if ( empty($tel) )
+            return null;
+
+        $tel = str_replace('(', '', $tel);
+        $tel = str_replace(')', '', $tel);
+        $tel = str_replace(' ', '', $tel);
+        $tel = str_replace('-', '', $tel);
+
+        return $tel;
+    }
+
+    /**
+     * @param $telefone
+     * @return bool|object
+     */
+    public function quebraTelefone($telefone)
+    {
+        if ( empty($telefone) )
+            return false;
+
+        $telefone = $this->cleanTelephoneMask($telefone);
+
+        $ddd = substr($telefone, 0, 2);
+        $tel = substr($telefone, 2);
+
+        $tele = [
+            'ddd'       => $ddd,
+            'numero'    => $tel
+        ];
+
+        return (object) $tele;
+    }
+
+    /**
+     * @param $array
+     * @return bool
+     */
+    public function checkArray($array)
+    {
+        if ( ! is_array($array) )
+            return false;
+
+        $array = array_values($array);
+
+        for ($i = 0; $i < count($array); $i++) :
+
+            if ($array[$i] !== '')
+                return true;
+
+        endfor;
+
+        return false;
+    }
+
+    /**
+     * @param $array
+     * @return bool|object
+     */
+    public function preparaTelefones($array) {
+
+        if( ! count($array))
+            return false;
+
+        $vartel = 1;
+
+        for ($i=0; $i <count($array); $i++) {
+            $ddd        = $array->data[$i]->ddd;
+            $telefone   = $array->data[$i]->telefone;
+
+            $telefones['telefone'.$vartel] = $ddd . $telefone;
+
+            $vartel++;
+        }
+
+        return (object) $telefones;
+    }
+
+    /**
+     * @param $money
+     * @return mixed|string
+     */
+    public function moneyToNumeric($money)
+    {
+        $money = trim($money);
+        $money = str_replace("R$ ", "", $money);
+        $money = str_replace(".", "", $money);
+        $money = str_replace(",", ".", $money);
+
+        return $money;
+    }
+
+}

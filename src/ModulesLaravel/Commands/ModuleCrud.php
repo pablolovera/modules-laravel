@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Core\Console\Commands;
+namespace PabloLovera\ModulesLaravel\Commands;
 
-use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
+use PabloLovera\ModulesLaravel\Traits\CommandTrait;
 
 class ModuleCrud extends Command
 {
     use CommandTrait;
+
     /**
      * The name and signature of the console command.
      *
@@ -22,7 +21,7 @@ class ModuleCrud extends Command
      *
      * @var string
      */
-    protected $description = 'Make a new module crud structure basic with Controller, Model, Request.';
+    protected $description = 'Create a new module crud structure basic with Controller, Model, Request.';
 
     /**
      * Create a new command instance.
@@ -49,29 +48,5 @@ class ModuleCrud extends Command
         $this->call('module:make-request'               , ['name' => $nome, 'module' => $module]);
 
         $this->info('The module crud to ' . $nome . ' has been generated. Enjoy!');
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'Name of the Crud.'],
-        ];
-    }
-    /*
-     * Get the console command options.
-     *
-     * @return array
-     */
-
-    protected function getOptions()
-    {
-        return [
-            ['fields', null, InputOption::VALUE_OPTIONAL, 'Fields of form & model.', null],
-        ];
     }
 }
