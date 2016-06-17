@@ -1,0 +1,88 @@
+@extends('vendor.site', ['load' => []])
+
+@section('content')
+    <div id="main" role="main">
+
+        <div id="ribbon">
+            <ol class="breadcrumb">
+                <li><a href="{{ url() }}">Início</a></li>
+                <li><a href="{{ url('*MODULENAMELOWER*') }}">*CAMELMODULENAME*</a></li>
+            </ol>
+        </div>
+
+        <div id="content">
+			<section id="widget-grid" class="">
+				@include('vendor.mensagem')
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false"	data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
+							<!-- widget options:
+							usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+							data-widget-colorbutton="false"
+							data-widget-editbutton="false"
+							data-widget-togglebutton="false"
+							data-widget-deletebutton="false"
+							data-widget-fullscreenbutton="false"
+							data-widget-custombutton="false"
+							data-widget-collapsed="true"
+							data-widget-sortable="false"
+
+							-->
+							<header>
+								<h2>Cadastro *CAMELMODULENAME*</h2>
+							</header>
+
+							<div>
+								<!-- widget edit box -->
+								<div class="jarviswidget-editbox">
+									<!-- This area used as dropdown edit box -->
+									<input class="form-control" type="text">
+								</div>
+								<!-- end widget edit box -->
+
+								<!-- widget content -->
+								<div class="widget-body">
+
+									<form id="cadastro" method="post" action="{{ url($route) }}">
+										{!! csrf_field() !!}
+
+
+
+										{{-- CAMPOS DO FORMULÁRIO A SEREM INSERIDOS --}}
+
+
+
+										<fieldset>
+											<div class="form-group">
+												<div class="row">
+													<div class="col-xs-12 col-md-12 validate">
+														<label class="control-label" for="">Nome</label>
+														<input type="text" class="form-control" placeholder="" name="" id="" value="{{ $dados or old('') }}"/>
+													</div>
+												</div>
+											</div>
+										</fieldset>
+
+										<div class="form-actions">
+											<div class="row">
+												<div class="col-md-12">
+													<button class="btn btn-info" type="reset"><i class="fa fa-toggle-left"></i>  Limpar</button>
+													<a href="{{ url('*MODULENAMELOWER*') }}" class="btn btn-danger"><i class="fa fa-minus"></i>  Cancelar</a>
+													<button class="btn btn-success" type="submit"><i class="fa fa-save"></i>  Salvar</button>
+												</div>
+											</div>
+										</div>
+
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+
+@stop

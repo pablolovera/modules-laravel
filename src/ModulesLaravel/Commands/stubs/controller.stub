@@ -1,0 +1,93 @@
+<?php
+
+namespace App\Modules\*MODULENAME*\Http\Controllers;
+
+use App\Modules\*MODULENAME*\Http\Requests\*NAME*Request;
+use App\Modules\*MODULENAME*\Models\*NAME*;
+use App\Core\Http\Controllers\Controller;
+
+class *NAME*Controller extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $dados = *NAME*::all();
+
+        return view('*NAMELOWER*::lista', compact('dados'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $dados['route'] = '*NAMELOWER*/store';
+        return view('*NAMELOWER*::dados', $dados);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(*NAME*Request $request)
+    {
+        $dados = new *NAME*();
+        $dados->fill($request->all());
+        $dados->save();
+
+        session()->flash('flash_message', 'Registro criado com sucesso!');
+        return redirect('*NAMELOWER*');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $dados['dados'] = *NAME*::find($id);
+        $dados['route'] = '*NAMELOWER*/update/' . $id;
+        return view('*NAMELOWER*::dados', $dados);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(*NAME*Request $request, $id)
+    {
+        $dados = *NAME*::find($id);
+        $dados->fill($request->all());
+        $dados->save();
+
+        session()->flash('flash_message', 'Registro atualizado com sucesso!');
+        return redirect('*NAMELOWER*');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        *NAME*::destroy($id);
+
+        session()->flash('flash_message', 'Registro apagado com sucesso!');
+        return redirect('*NAMELOWER*');
+    }
+}

@@ -1,0 +1,23 @@
+<?php
+namespace App\Modules\*MODULENAME*\Database\seeds;
+
+use Carbon\Carbon;
+use Illuminate\Database\Seeder;
+use DB;
+
+class *NAME* extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        DB::table('*TABLENAME*')->insert([
+            'id'            => 1,
+            'created_at'    => Carbon::now(),
+            'updated_at'    => Carbon::now(),
+        ]);
+    }
+}
