@@ -7,11 +7,6 @@
 return [
 
     /*
-     *  Standard directory of stubs
-     */
-    'path_stubs' => app_path('Core/Console/Commands/stubs/'),
-
-    /*
      *  Standard directory of modules
      */
     'modules_directory' => 'app/Modules/',

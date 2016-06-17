@@ -36,7 +36,7 @@ trait CommandTrait
      */
     public function getContents($stubName)
     {
-        return file_get_contents(config('module.path_stubs') . $stubName .'.stub');
+        return file_get_contents(__DIR__.'/../../ModulesLaravel/Commands/stubs/' . $stubName .'.stub');
     }
 
     /**
@@ -105,7 +105,7 @@ trait CommandTrait
         $file = $this->getContextFileName($name[1]);
 
         $path = $name[0];
-        $path = str_replace('.', '', $path);
+        $path = str_replace('.', ' ', $path);
         $path = ucwords(strtolower($path));
         $path = str_replace(' ', '/', $path);
 
