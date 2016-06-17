@@ -27,6 +27,7 @@ class ModulesServiceProvider extends ServiceProvider
      */
     protected $commands = [
         'Module',
+        'ModuleCore',
         'ModuleController',
         'ModuleCrud',
         'ModuleModel',
