@@ -103,6 +103,18 @@ module:make-transformer <transformer-name> <module-name>
 ```
 So... created in `app/Modules/<module-name>/Transformers/<transformer-name>`
 
+##### Create Input View for existing module
+```
+module:make-view-dados <module-name>
+```
+So... created in `app/Modules/<module-name>/Views/<view-name>`
+
+##### Create List View for existing module
+```
+module:make-view-lista <module-name>
+```
+So... created in `app/Modules/<module-name>/Views/<view-name>`
+
 ### Licence
 
 [MIT Licence](https://github.com/pablolovera/modules-laravel/blob/master/LICENSE)
