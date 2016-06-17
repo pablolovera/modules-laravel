@@ -40,11 +40,6 @@ class ModulesServiceProvider extends ServiceProvider
         'ModuleMigration',
         'ModuleSeeder',
         'ModuleSeed',
-//        'ModuleEntityContract',
-//        'ModuleRepository',
-//        'ModuleRepositoryContract',
-//        'ModuleService',
-//        'ModuleServiceContract',
     ];
 
     /**

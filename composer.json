@@ -1,6 +1,9 @@
 {
   "name": "pablolovera/modules-laravel",
-  "description": "Modules for Laravel 5",
+  "type": "library",
+  "description": "Modules for applications based on laravel 5.*",
+  "keywords": ["modulos","modules", "laravel", "laravel 5 modules"],
+  "homepage": "https://github.com/pablolovera/modules-laravel",
   "license": "MIT",
   "authors": [
     {
