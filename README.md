@@ -1,4 +1,4 @@
-## Modules for applications based on laravel 5.*
+## Modules for applications based on laravel 5.3.*
 
 ### Install
 
@@ -20,18 +20,18 @@ php artisan vendor:publish --provider="PabloLovera\ModulesLaravel\Providers\Modu
 ### How to use...
 
 #### First step (IMPORTANT)
-Create the `Core` module. It's very important!
+Run the command to create the default scaffold of modules
 ```
-php artisan module:make-core
+php artisan module:start
 ```
-Then... see the directory `app/Core/`
+Then... in the `app/` will be created tow new folders `Core` and `Modules`
 
 #### Create the other modules...
 
 ```
 php artisan make:module <module-name>
 ```
-Then... see the directory `app/Modules/<module-name>`
+Then... will be created `app/Modules/<module-name>`
 
 ### Commands available
 
@@ -43,7 +43,7 @@ Then... see the directory `app/Modules/<module-name>`
 make:module <module-name>
 ```
 
-So... created in `app/Modules/<module-name>`
+Then... will be created `app/Modules/<module-name>`
 
 When a new module is created, you need add provider in `config/app.php`, like a `App\Modules\<module-name>\Providers\<module-name>ServiceProvider::class,`
 
@@ -51,35 +51,35 @@ When a new module is created, you need add provider in `config/app.php`, like a 
 ```
 module:make-controller <controller-name> <module-name>
 ```
-So... created in `app/Modules/<module-name>/Http/Controllers/<controller-name>`
+Then... will be created `app/Modules/<module-name>/Http/Controllers/<controller-name>`
 
 
 ##### Create Model for existing module
 ```
 module:make-model <model-name> <module-name>
 ```
-So... created in `app/Modules/<module-name>/Models/<model-name>`
+Then... will be created `app/Modules/<module-name>/Models/<model-name>`
 
 
 ##### Create Request for existing module
 ```
 module:make-request <request-name> <module-name>
 ```
-So... created in `app/Modules/<module-name>/Http/Requests/<request-name>`
+Then... will be created `app/Modules/<module-name>/Http/Requests/<request-name>`
 
 
 ##### Create Seeder for existing module
 ```
 module:make-seeder <seeder-name> <module-name>
 ```
-So... created in `app/Modules/<module-name>/Database/seeds/<seeder-name>`
+Then... will be created `app/Modules/<module-name>/Database/seeds/<seeder-name>`
 
 
 ##### Create Migration for existing module
 ```
 module:make-migration <migration-name> <module-name>
 ```
-So... created in `app/Modules/<module-name>/Database/migrations/<migration-name>`
+Then... will be created `app/Modules/<module-name>/Database/migrations/<migration-name>`
 
 
 ##### Executing Migration for existing module
@@ -95,7 +95,7 @@ module:migrate <module-name> --seed
 ```
 module:make-service-provider <service-provider-name> <module-name>
 ```
-So... created in `app/Modules/<module-name>/Providers/<service-provider-name>`
+Then... will be created `app/Modules/<module-name>/Providers/<service-provider-name>`
 
 
 
@@ -103,19 +103,19 @@ So... created in `app/Modules/<module-name>/Providers/<service-provider-name>`
 ```
 module:make-transformer <transformer-name> <module-name>
 ```
-So... created in `app/Modules/<module-name>/Transformers/<transformer-name>`
+Then... will be created `app/Modules/<module-name>/Transformers/<transformer-name>`
 
 ##### Create Input View for existing module
 ```
 module:make-view-dados <module-name>
 ```
-So... created in `app/Modules/<module-name>/Views/<view-name>`
+Then... will be created `app/Modules/<module-name>/Views/<view-name>`
 
 ##### Create List View for existing module
 ```
 module:make-view-lista <module-name>
 ```
-So... created in `app/Modules/<module-name>/Views/<view-name>`
+Then... will be created `app/Modules/<module-name>/Views/<view-name>`
 
 ### Licence
 
