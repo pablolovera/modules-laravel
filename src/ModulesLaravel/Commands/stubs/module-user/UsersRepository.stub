@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Modules\Users\Repositories;
+
+use App\Core\Repositories\BaseRepository;
+use App\Modules\Users\Contracts\Entities\UsersEntityContract;
+use App\Modules\Users\Contracts\Repositories\UsersRepositoryContract;
+
+class UsersRepository extends BaseRepository implements UsersRepositoryContract
+{
+    /**
+     * UsersRepository constructor.
+     * @param UsersEntityContract $model
+     */
+    public function __construct(UsersEntityContract $model)
+    {
+        $this->entity = $model;
+    }
+}

@@ -1,14 +1,13 @@
 <?php
 
-namespace PabloLovera\ModulesLaravel\Commands;
+namespace App\Core\Console\Commands;
 
 use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
+use App\Core\Console\Traits\CommandTrait;
 
 class ModuleRoutes extends Command
 {
     use CommandTrait;
-
     /**
      * The name and signature of the console command.
      *
@@ -24,11 +23,46 @@ class ModuleRoutes extends Command
     protected $description = 'Create a new Router for module';
 
     /**
-     * The stub name
+     * The stub name for api routes
      *
      * @var string
      * */
-    protected $stub = 'routes';
+    protected $stubApi = 'module-routes-api';
+
+    /**
+     * The stub name for web routes
+     *
+     * @var string
+     * */
+    protected $stubWeb = 'module-routes-web';
+
+    /**
+     * The directory stubs
+     *
+     * @var string
+     * */
+    protected $pathStubs = 'modules';
+
+    /**
+     * The directory modules
+     *
+     * @var string
+     * */
+    private $moduleDirectory = '';
+
+    /**
+     * The module name
+     *
+     * @var string
+     * */
+    private $module = '';
+
+    /**
+     * The directory target
+     *
+     * @var string
+     * */
+    private $toDirectory = '';
 
     /**
      * Create a new command instance.
@@ -47,19 +81,50 @@ class ModuleRoutes extends Command
      */
     public function handle()
     {
-        $moduleDirectory    = config('module.modules_directory');
-        $module             = $this->argument('module');
-        $name               = 'routes';
-        $toDirectory        = $moduleDirectory . $module . '/Http';
+        $this->moduleDirectory    = config('module.modules_directory');
+        $this->module             = $this->argument('module');
+        $this->toDirectory        = $this->moduleDirectory . $this->module . '/Routes';
 
-        $content            = $this->getContents($this->stub);
+        $this->apiRoutes();
+        $this->webRoutes();
 
-        $content            = $this->replaceModuleName($module, $content);
+        $this->info('The Module ' . $this->module .' has been received a new routes. Be happy!');
+    }
 
-        $this->doDirectory($toDirectory);
+    /**
+     * Write the api routes
+     *
+     * @return void
+     */
+    private function apiRoutes()
+    {
+        $content            = $this->getContents($this->stubApi);
 
-        $this->writeFile($content, $toDirectory, $name);
+        $content            = $this->replaceModuleName($this->module, $content);
 
-        $this->info('The Module ' . $module .' has been received a new routes file: ' . $name . '. Be happy!');
+        $this->doDirectory($this->toDirectory);
+
+        $this->writeFile($content, $this->toDirectory, 'api');
+
+        return;
+    }
+
+    /**
+     * Write the web routes
+     *
+     * @return void
+     */
+    private function webRoutes()
+    {
+        $content            = $this->getContents($this->stubWeb);
+
+        $content            = $this->replaceModuleName($this->module, $content);
+        $content            = $this->replaceNamespace(strtolower($this->module), $content);
+
+        $this->doDirectory($this->toDirectory);
+
+        $this->writeFile($content, $this->toDirectory, 'web');
+
+        return;
     }
 }

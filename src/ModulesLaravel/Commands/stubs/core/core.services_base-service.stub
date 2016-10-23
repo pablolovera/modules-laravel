@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Core\Services;
+
+use App\Core\Contracts\Repositories\BaseRepositoryContract;
+use App\Core\Contracts\Services\BaseServiceContract;
+
+abstract class BaseService implements BaseServiceContract
+{
+    /**
+     * @var BaseRepositoryContract
+     */
+    protected $repository;
+
+    /**
+     * BaseService constructor.
+     * @param BaseRepositoryContract $repository
+     */
+    public function __construct(BaseRepositoryContract $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * @param $id
+     * @param array $columns
+     * @return mixed
+     */
+    public function find($id, $columns = ['*'])
+    {
+        return $this->repository->find($id, $columns);
+    }
+
+    /**
+     * @param $field
+     * @param $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function findAllBy($field, $value, $columns = ['*'])
+    {
+        return $this->repository->findAllBy($field, $value, $columns);
+    }
+
+    /**
+     * @param $field
+     * @param $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function findBy($field, $value, $columns = ['*'])
+    {
+        return $this->repository->findBy($field, $value, $columns);
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     * @return mixed
+     */
+    public function existsBy($key, $value)
+    {
+        return $this->repository->existsBy($key, $value);
+    }
+
+    /**
+     * @param int $perPage
+     * @return mixed
+     */
+    public function paginate($perPage = 10)
+    {
+        return $this->repository->paginate($perPage);
+    }
+
+    /**
+     * @param $key
+     * @param $data
+     * @return mixed
+     */
+    public function deleteBy($key, $value)
+    {
+        return $this->repository->deleteBy($key, $value);
+    }
+}

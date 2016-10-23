@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Modules\*MODULENAME*\Repositories;
+
+use App\Core\Repositories\BaseRepository;
+use App\Modules\*MODULENAME*\Contracts\Entities\*ENTITYNAME*Contract;
+use App\Modules\*MODULENAME*\Contracts\Repositories\*NAME*Contract;
+
+class *NAME* extends BaseRepository implements *NAME*Contract
+{
+    /**
+     * *NAME* constructor.
+     * @param *ENTITYNAME*Contract $model
+     */
+    public function __construct(*ENTITYNAME*Contract $model)
+    {
+        $this->entity = $model;
+    }
+}

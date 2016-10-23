@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Modules\*MODULENAME*\Entities;
+
+use App\Modules\*MODULENAME*\Contracts\Entities\*NAME*Contract;
+use App\Core\Entities\BaseEntity;
+
+class *NAME* extends BaseEntity implements *NAME*Contract
+{
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table        = '*TABLENAME*';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable     = [];
+}

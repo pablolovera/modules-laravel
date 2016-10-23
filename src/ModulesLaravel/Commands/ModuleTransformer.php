@@ -1,14 +1,13 @@
 <?php
 
-namespace PabloLovera\ModulesLaravel\Commands;
+namespace App\Core\Console\Commands;
 
 use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
+use App\Core\Console\Traits\CommandTrait;
 
 class ModuleTransformer extends Command
 {
     use CommandTrait;
-
     /**
      * The name and signature of the console command.
      *
@@ -28,7 +27,14 @@ class ModuleTransformer extends Command
      *
      * @var string
      * */
-    protected $stub = 'transformer';
+    protected $stub = 'module-transformer';
+
+    /**
+     * The directory stubs
+     *
+     * @var string
+     * */
+    protected $pathStubs = 'modules';
 
     /**
      * Create a new command instance.
@@ -52,9 +58,11 @@ class ModuleTransformer extends Command
         $name               = $this->argument('name');
         $toDirectory        = $moduleDirectory . $module . '/Transformers';
 
+        $entityName         = $this->getEntityName($name);
         $content            = $this->getContents($this->stub);
 
         $content            = $this->replaceName($name, $content);
+        $content            = $this->replaceEntityName($entityName, $content);
         $content            = $this->replaceModuleName($module, $content);
 
         $this->doDirectory($toDirectory);
@@ -62,5 +70,10 @@ class ModuleTransformer extends Command
         $this->writeFile($content, $toDirectory, $name, $this->stub);
 
         $this->info('The Module ' . $module .' has been received a new transformer: ' . $name . '. Be happy!');
+    }
+
+    public function getEntityName($name)
+    {
+        return str_replace('Transformer', '', $name) . 'Entity';
     }
 }

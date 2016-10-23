@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Modules\*MODULENAME*\Contracts\Entities;
+
+use App\Core\Contracts\Entities\BaseEntityContract;
+
+interface *NAME* extends BaseEntityContract
+{
+    // Silence is golden...
+}

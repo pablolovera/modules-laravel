@@ -1,0 +1,22 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Module Users API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your module. These
+| routes are loaded by the RouteUsersServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
+Route::group(['namespace' => 'API', 'middleware' => ['client_credentials']], function () {
+
+    Route::get(''           , 'UsersController@index');
+    Route::get('{id}'       , 'UsersController@show@{id}');
+    Route::post(''          , 'UsersController@store');
+    Route::put('{id}'       , 'UsersController@update@{id}');
+    Route::delete('{id}'    , 'UsersController@destroy@{id}');
+
+});

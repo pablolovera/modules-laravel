@@ -1,0 +1,132 @@
+<?php
+
+namespace App\Modules\*MODULENAME*\Http\Controllers\Web;
+
+use App\Core\Http\Controllers\Controller;
+use App\Modules\*MODULENAME*\Contracts\Services\*SERVICENAME*Contract;
+use App\Modules\*MODULENAME*\Transformers\*TRANSFORMERNAME*;
+use App\Modules\*MODULENAME*\Http\Requests\*REQUESTNAME*;
+
+class *NAME* extends Controller
+{
+    /**
+     * @var *SERVICENAME*Contract
+     */
+    protected $service;
+
+    /**
+     * @var *TRANSFORMERNAME*
+     */
+    protected $transformer;
+
+    /**
+     * *NAME* constructor.
+     *
+     * @param *SERVICENAME*Contract $service
+     * @param *TRANSFORMERNAME* $transformer
+     */
+    public function __construct(*SERVICENAME*Contract $service, *TRANSFORMERNAME* $transformer)
+    {
+        $this->service      = $service;
+        $this->transformer  = $transformer;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $data['all'] = $this->service->all();
+
+        return view('*NAMESPACE*:list', $data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $data['resource']   = [];
+        $data['route']      = route('*LOWERNAME*.store');
+
+        return view('*NAMESPACE*:form', $data);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param *REQUESTNAME*|\Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(*REQUESTNAME* $request)
+    {
+        $this->service->store($request);
+
+        alert()->success('Saved!!');
+
+        return redirect()->route('*LOWERNAME*.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $data['resource']   = $this->service->show($id);
+        $data['route']      = route('*LOWERNAME*.edit', $id);
+
+        return view('*NAMESPACE*:show', $data);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data['resource']   = $this->service->show($id);
+        $data['route']      = route('*LOWERNAME*.update', $id);
+
+        return view('*NAMESPACE*:form', $data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param *REQUESTNAME*|\Illuminate\Http\Request $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(*REQUESTNAME* $request, $id)
+    {
+        $this->service->update($request, $id);
+
+        alert()->success('Updated!!');
+
+        return redirect()->route('*LOWERNAME*.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        alert()->success('Deleted!!');
+
+        $this->service->destroy($id);
+
+        return redirect()->route('*LOWERNAME*.index');
+    }
+}

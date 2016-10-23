@@ -1,0 +1,27 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Module Auth Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for module.
+|
+*/
+
+Route::group(['namespace' => 'Web'], function () {
+
+    Route::post('logout'                , 'LoginController@logout');
+
+    Route::get('login'                  , 'LoginController@showForm');
+    Route::post('login'                 , 'LoginController@login');
+
+    Route::get('password/reset'         , 'ForgotPasswordController@showForm');
+    Route::post('password/email'        , 'ForgotPasswordController@sendResetLinkEmail');
+    Route::get('password/reset/{token}' , 'ResetPasswordController@showForm');
+    Route::post('password/reset'        , 'ResetPasswordController@reset');
+
+    Route::get('register'               , 'RegisterController@showForm');
+    Route::post('register'              , 'RegisterController@register');
+
+});

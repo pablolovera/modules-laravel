@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Core\Providers;
+
+use App\Core\Contracts\Entities\BaseEntityContract;
+use App\Core\Contracts\Repositories\BaseRepositoryContract;
+use App\Core\Contracts\Services\BaseServiceContract;
+use App\Core\Entities\BaseEntity;
+use App\Core\Repositories\BaseRepository;
+use App\Core\Services\BaseService;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        //
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->bind(BaseRepositoryContract::class, BaseRepository::class);
+        $this->app->bind(BaseServiceContract::class, BaseService::class);
+        $this->app->bind(BaseEntityContract::class, BaseEntity::class);
+    }
+}

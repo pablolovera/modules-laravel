@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Modules\Users\Contracts\Services;
+
+use App\Core\Contracts\Services\BaseServiceContract;
+
+interface UsersServiceContract extends BaseServiceContract
+{
+    /**
+     * @return mixed
+     */
+    public function all();
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function show($id);
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function store($data);
+
+    /**
+     * @param $data
+     * @param $id
+     * @return mixed
+     */
+    public function update($data, $id);
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function destroy($id);
+}

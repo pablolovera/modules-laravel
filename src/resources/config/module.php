@@ -6,14 +6,24 @@
  */
 return [
 
-    /*
-     *  Standard directory of modules
+    /**
+     *  Default directory of modules
      */
     'modules_directory' => 'app/Modules/',
 
-    /*
-     *  Standard directory of Core module
+    /**
+     *  Default directory of Core module
      */
-    'core_directory' => 'app/Core/'
+    'modules_namespace' => 'App\Modules\\',
+
+    /**
+     *  Default directory of Core module
+     */
+    'core_directory' => 'app/Core/',
+
+    /**
+     *  Default directory of stubs
+     */
+    'path_stubs' => '/../../Commands/stubs/'
 
 ];

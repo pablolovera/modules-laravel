@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Core\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class BaseMail extends Mailable
+{
+    use Queueable, SerializesModels;
+}

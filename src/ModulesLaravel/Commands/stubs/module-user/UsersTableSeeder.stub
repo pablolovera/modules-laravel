@@ -1,0 +1,23 @@
+<?php
+namespace App\Modules\Users\Database\seeds;
+
+use App\Modules\Users\Entities\UsersEntity;
+use DB;
+use Illuminate\Database\Seeder;
+
+class UsersTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        UsersEntity::create([
+            'name'      => 'Super User',
+            'email'     => 'superuser@super.user',
+            'password'  => bcrypt('poweruser')
+        ]);
+    }
+}

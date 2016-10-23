@@ -1,14 +1,13 @@
 <?php
 
-namespace PabloLovera\ModulesLaravel\Commands;
+namespace App\Core\Console\Commands;
 
 use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
+use App\Core\Console\Traits\CommandTrait;
 
 class ModuleRequest extends Command
 {
     use CommandTrait;
-
     /**
      * The name and signature of the console command.
      *
@@ -28,7 +27,14 @@ class ModuleRequest extends Command
      *
      * @var string
      * */
-    protected $stub = 'request';
+    protected $stub = 'module-request';
+
+    /**
+     * The directory stubs
+     *
+     * @var string
+     * */
+    protected $pathStubs = 'modules';
 
     /**
      * Create a new command instance.

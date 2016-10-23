@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Modules\Users\Contracts\Repositories;
+
+use App\Core\Contracts\Repositories\BaseRepositoryContract;
+
+interface UsersRepositoryContract extends BaseRepositoryContract
+{
+    // Silence is golden...
+}

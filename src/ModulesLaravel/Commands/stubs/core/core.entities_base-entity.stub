@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Core\Entities;
+
+use App\Core\Contracts\Entities\BaseEntityContract;
+use Illuminate\Database\Eloquent\Model;
+
+class BaseEntity extends Model implements BaseEntityContract
+{
+    use SoftDeletes;
+}

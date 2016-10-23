@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Modules\*MODULENAME*\Listeners;
+
+use App\Modules\*MODULENAME*\Events\*NAME*Event;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class *NAME*
+{
+    /**
+     * Create the event listener.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Handle the event.
+     *
+     * @param  TesteJob  $event
+     * @return void
+     */
+    public function handle(*NAME*Event $event)
+    {
+        //
+    }
+}
+

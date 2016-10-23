@@ -1,14 +1,13 @@
 <?php
 
-namespace PabloLovera\ModulesLaravel\Commands;
+namespace App\Core\Console\Commands;
 
 use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
+use App\Core\Console\Traits\CommandTrait;
 
 class ModuleMigration extends Command
 {
     use CommandTrait;
-
     /**
      * The name and signature of the console command.
      *
@@ -28,7 +27,14 @@ class ModuleMigration extends Command
      *
      * @var string
      * */
-    protected $stub = 'migration';
+    protected $stub = 'module-migration';
+
+    /**
+     * The directory stubs
+     *
+     * @var string
+     * */
+    protected $pathStubs = 'modules';
 
     /**
      * Create a new command instance.
@@ -54,8 +60,8 @@ class ModuleMigration extends Command
 
         $content            = $this->getContents($this->stub);
 
-        $content            = $this->replaceMigrationName($name, $content);
-        $content            = $this->replaceTableName($module, $content);
+        $content            = $this->replaceMigrationName(strtolower($name), $content);
+        $content            = $this->replaceTableName(strtolower($module), $content);
 
         $name               = $this->timestampToMigration() . $name;
 

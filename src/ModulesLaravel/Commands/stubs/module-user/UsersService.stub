@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Modules\Users\Services;
+
+use App\Core\Services\BaseService;
+use App\Modules\Users\Contracts\Services\UsersServiceContract;
+use App\Modules\Users\Contracts\Repositories\UsersRepositoryContract;
+
+class UsersService extends BaseService implements UsersServiceContract
+{
+    /**
+     * @var UsersRepositoryContract
+     */
+    protected $repository;
+
+    /**
+     * UsersServiceService constructor.
+     * @param UsersRepositoryContract $repository
+     */
+    public function __construct(UsersRepositoryContract $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function all()
+    {
+        return $this->repository->all();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function show($id)
+    {
+        return $this->repository->find($id);
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function store($data)
+    {
+        // TODO: Implements the fields of store() method. If necessary
+
+        return $this->repository->save($data);
+    }
+
+    /**
+     * @param $data
+     * @param $id
+     * @return mixed
+     */
+    public function update($data, $id)
+    {
+        // TODO: Implements the fields of update() method. If necessary
+
+        return $this->repository->update($data, $id);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function destroy($id)
+    {
+        return $this->repository->delete($id);
+    }
+}

@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Modules\Dashboard\Contracts\Entities;
+
+use App\Core\Contracts\Entities\BaseEntityContract;
+
+interface DashboardEntityContract extends BaseEntityContract
+{
+    // Silence is golden...
+}

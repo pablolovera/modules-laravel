@@ -1,0 +1,93 @@
+<?php
+
+namespace App\Modules\*MODULENAME*\Http\Controllers\API;
+
+use App\Core\Http\Controllers\Controller;
+use App\Modules\*MODULENAME*\Contracts\Services\*SERVICENAME*Contract;
+use App\Modules\*MODULENAME*\Transformers\*TRANSFORMERNAME*;
+use App\Modules\*MODULENAME*\Http\Requests\*REQUESTNAME*;
+use Cyvelnet\Laravel5Fractal\Facades\Fractal;
+
+class *NAME* extends Controller
+{
+    /**
+     * @var *SERVICENAME*Contract
+     */
+    protected $service;
+
+    /**
+     * @var *TRANSFORMERNAME*
+     */
+    protected $transformer;
+
+    /**
+     * *NAME* constructor.
+     *
+     * @param *SERVICENAME*Contract $service
+     * @param *TRANSFORMERNAME* $transformer
+     */
+    public function __construct(*SERVICENAME*Contract $service, *TRANSFORMERNAME* $transformer)
+    {
+        $this->service      = $service;
+        $this->transformer  = $transformer;
+    }
+
+    /**
+     * Return a listing of the resource.
+     *
+     * @return mixed
+     */
+    public function index()
+    {
+        if ( $data = $this->service->all() )
+            return Fractal::collection($data, $this->transformer)->responseJson();
+    }
+
+    /**
+     * Return the specified resource.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function show($id)
+    {
+        if ( $data = $this->service->show($id) )
+            return Fractal::item($data, $this->transformer)->responseJson();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param *REQUESTNAME*|\Illuminate\Http\Request $request
+     * @return mixed
+     */
+    public function store(*REQUESTNAME* $request)
+    {
+        if ( $data = $this->service->store($request) )
+            return Fractal::item($data, $this->transformer)->responseJson();
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param *REQUESTNAME*|\Illuminate\Http\Request $request
+     * @param $id
+     * @return mixed
+     */
+    public function update(*REQUESTNAME* $request, $id)
+    {
+        if ( $data = $this->service->update($request, $id) )
+            return Fractal::item($data, $this->transformer)->responseJson();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function destroy($id)
+    {
+        return $this->service->destroy($id);
+    }
+}

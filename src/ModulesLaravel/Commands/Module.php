@@ -1,9 +1,11 @@
 <?php
 
-namespace PabloLovera\ModulesLaravel\Commands;
+namespace App\Core\Console\Commands;
 
 use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
+use App\Core\Console\Traits\CommandTrait;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class Module extends Command
 {
@@ -42,22 +44,26 @@ class Module extends Command
     {
         $moduleDirectory    = 'app/Modules/';
         $nome               = $this->argument('nome');
+        $migration          = 'create_' . strtolower($nome) . '_table';
+
 
         $this->doDirectory($moduleDirectory . $nome);
 
-        $this->call('module:make-controller'            , ['name' => $nome, 'module' => $nome]);
-        $this->call('module:make-model'                 , ['name' => $nome, 'module' => $nome]);
-        $this->call('module:make-request'               , ['name' => $nome, 'module' => $nome]);
-        $this->call('module:make-transformer'           , ['name' => $nome, 'module' => $nome]);
-        $this->call('module:make-service-provider'      , ['name' => $nome, 'module' => $nome]);
+        $this->call('module:make-controller'            , ['name' => $nome . 'Controller'           , 'module' => $nome]);
+        $this->call('module:make-entity'                , ['name' => $nome . 'Entity'               , 'module' => $nome]);
+        $this->call('module:make-entity-contract'       , ['name' => $nome . 'EntityContract'       , 'module' => $nome]);
+        $this->call('module:make-repository'            , ['name' => $nome . 'Repository'           , 'module' => $nome]);
+        $this->call('module:make-repository-contract'   , ['name' => $nome . 'RepositoryContract'   , 'module' => $nome]);
+        $this->call('module:make-service'               , ['name' => $nome . 'Service'              , 'module' => $nome]);
+        $this->call('module:make-service-contract'      , ['name' => $nome . 'ServiceContract'      , 'module' => $nome]);
+        $this->call('module:make-request'               , ['name' => $nome . 'Request'              , 'module' => $nome]);
+        $this->call('module:make-transformer'           , ['name' => $nome . 'Transformer'          , 'module' => $nome]);
+        $this->call('module:make-service-provider'      , ['name' => $nome . 'ServiceProvider'      , 'module' => $nome]);
         $this->call('module:make-router'                , ['module' => $nome]);
-        $this->call('module:make-view-dados'            , ['module' => $nome]);
-        $this->call('module:make-view-lista'            , ['module' => $nome]);
-        $this->call('module:make-migration'             , ['name' => 'create_' . $nome .'_table', 'module' => $nome]);
-        $this->call('module:make-seeder'                , ['name' => $nome, 'module' => $nome]);
+        $this->call('module:make-migration'             , ['name' => $migration                     , 'module' => $nome]);
+        $this->call('module:make-seeder'                , ['name' => $nome . 'TableSeeder'          , 'module' => $nome]);
+        $this->call('module:make-views'                 , ['module' => $nome]);
 
-
-        $this->error('The module ' . $nome . ' needs add App\Modules\\' . $nome . '\\' . $nome . 'ServiceProvider::class in config/app.php!');
         $this->info('The module ' . $nome . ' has been generated. Enjoy!');
     }
 }

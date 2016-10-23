@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Core\Exceptions;
+
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+class Handler extends ExceptionHandler
+{
+
+    /**
+     * A list of the exception types that should not be reported.
+     *
+     * @var array
+     */
+    protected $dontReport = [];
+
+    /**
+     * Report or log an exception.
+     *
+     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
+     *
+     * @param  \Exception  $e
+     * @return void
+     */
+    public function report(Exception $e)
+    {
+        return parent::report($e);
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception  $e
+     * @return \Illuminate\Http\Response
+     */
+    public function render($request, Exception $e)
+    {
+        if ($e instanceof ModelNotFoundException) :
+
+            return response()->json([
+                'error' => [
+                    'mensagem'      => 'Model não encontrado',
+                    'arquivo'       => $e->getFile(),
+                    'linha'         => $e->getLine(),
+                    'codigo_erro'   => 404
+                ]
+            ], 404);
+
+        elseif ($e instanceof NotFoundHttpException) :
+
+            return response()->json([
+                'error' => [
+                    'mensagem'      => 'Rota não encontrada',
+                    'arquivo'       => $e->getFile(),
+                    'linha'         => $e->getLine(),
+                    'codigo_erro'   => 404
+                ]
+            ], 404);
+
+        elseif ($e instanceof ForbiddenException) :
+
+            return response()->json([
+                'error' => [
+                    'mensagem'      => 'Permissão negada',
+                    'codigo_erro'   => 403
+                ]
+            ], 403);
+
+        else :
+
+            return response()->json([
+                'error' => [
+                    'mensagem'      => $e->getMessage(),
+                    'arquivo'       => $e->getFile(),
+                    'linha'         => $e->getLine(),
+                    'codigo_erro'   => 400
+                ]
+            ], 400);
+
+        endif;
+    }
+}

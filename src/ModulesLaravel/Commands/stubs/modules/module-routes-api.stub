@@ -1,0 +1,22 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Module *MODULENAME* API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your module. These
+| routes are loaded by the Route*MODULENAME*ServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
+Route::group(['namespace' => 'API', 'middleware' => ['client_credentials']], function () {
+
+    Route::get(''           , '*MODULENAME*Controller@index');
+    Route::get('{id}'       , '*MODULENAME*Controller@show@{id}');
+    Route::post(''          , '*MODULENAME*Controller@store');
+    Route::put('{id}'       , '*MODULENAME*Controller@update@{id}');
+    Route::delete('{id}'    , '*MODULENAME*Controller@destroy@{id}');
+
+});

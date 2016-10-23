@@ -29,18 +29,30 @@ class ModulesServiceProvider extends ServiceProvider
         'Module',
         'ModuleCore',
         'ModuleController',
-        'ModuleCrud',
-        'ModuleModel',
-        'ModuleRequest',
-        'ModuleRoutes',
-        'ModuleServiceProvider',
-        'ModuleTransformer',
-        'ModuleViewDados',
-        'ModuleViewLista',
+        'ModuleEntity',
+        'ModuleEntityContract',
+        'ModuleEvent',
+        'ModuleJob',
+        'ModuleListener',
+        'ModuleMail',
         'ModuleMigrate',
         'ModuleMigration',
-        'ModuleSeeder',
+        'ModuleNotification',
+        'ModuleRepository',
+        'ModuleRepositoryContract',
+        'ModuleRequest',
+        'ModuleRoutes',
         'ModuleSeed',
+        'ModuleSeeder',
+        'ModuleService',
+        'ModuleServiceContract',
+        'ModuleServiceProvider',
+        'ModuleTransformer',
+        'ModuleViews',
+        'ModuleUsers',
+        'ModuleDashboard',
+        'ModuleAuth',
+        'ModuleStart'
     ];
 
     /**
@@ -49,6 +61,8 @@ class ModulesServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([__DIR__.'/../../resources/config/module.php' => config_path('module.php')], 'config');
+        $this->publishes([__DIR__.'/../../resources/config/fractal.php' => config_path('fractal.php')], 'config');
+
     }
 
     /**
@@ -56,9 +70,8 @@ class ModulesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        foreach ($this->commands as $command) {
+        foreach ($this->commands as $command)
             $this->commands($this->namespace.$command);
-        }
     }
 
     /**
@@ -68,9 +81,8 @@ class ModulesServiceProvider extends ServiceProvider
     {
         $provides = [];
 
-        foreach ($this->commands as $command) {
+        foreach ($this->commands as $command)
             $provides[] = $this->namespace.$command;
-        }
 
         return $provides;
     }

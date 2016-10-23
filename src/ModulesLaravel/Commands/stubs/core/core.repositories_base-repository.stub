@@ -1,0 +1,195 @@
+<?php
+
+namespace App\Core\Repositories;
+
+use App\Core\Contracts\Entities\BaseEntityContract;
+use App\Core\Contracts\Repositories\BaseRepositoryContract;
+use App\Core\Exceptions\RepositoryException;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+
+abstract class BaseRepository implements BaseRepositoryContract
+{
+    /**
+     * @var BaseEntityContract
+     */
+    protected $entity;
+
+    /**
+     * BaseRepository constructor.
+     * @param App $app
+     * @param BaseEntityContract $entity
+     */
+    public function __construct(BaseEntityContract $entity)
+    {
+        $this->makeModel();
+    }
+
+    /**
+     * @return Model
+     * @throws RepositoryException
+     */
+    private function makeModel()
+    {
+        $model = app()->make($this->entity());
+
+        if ( ! $model instanceof Model)
+            throw new RepositoryException("Class {$this->entity()} deve ser uma instancia de Illuminate\\Database\\Eloquent\\Model");
+
+        return $this->entity = $model;
+    }
+
+    /**
+     * @param array $columns
+     * @return mixed
+     */
+    public function all($columns = ['*'])
+    {
+        return $this->entity->get($columns);
+    }
+
+    /**
+     * @param $id
+     * @param array $columns
+     * @return mixed
+     */
+    public function find($id, $columns = ['*'])
+    {
+        return $this->entity->find($id, $columns);
+    }
+
+    /**
+     * @param $field
+     * @param $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function findBy($field, $value, $columns = ['*'])
+    {
+        return $this->entity->where($field, $value)->first($columns);
+    }
+
+    /**
+     * @param $key
+     * @param $data
+     * @return bool
+     */
+    public function existsBy($key, $value)
+    {
+        if (count($this->findBy($key, $value)) > 0)
+            return true;
+
+        return false;
+    }
+
+    /**
+     * @param $field
+     * @param $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function findAllBy($field, $value, $columns = ['*'])
+    {
+        return $this->entity->where($field, $value)->get($columns);
+    }
+
+    /**
+     * @param int $perPage
+     * @param array $columns
+     * @return mixed
+     */
+    public function paginate($perPage = 1, $columns = ['*'])
+    {
+        return $this->entity->paginate($perPage, $columns);
+    }
+
+    /**
+     * Create new register based in the model data
+     *
+     * @param array $data
+     * @return BaseEntityContract
+     */
+    public function create($data = [])
+    {
+        DB::transaction(function () use ($data) {
+
+            $this->entity->create($data);
+
+        });
+
+        return $this->entity;
+    }
+
+    /**
+     * Save a model without massive assignment
+     *
+     * @param array $data
+     * @return BaseEntityContract
+     */
+    public function save($data = [])
+    {
+        DB::transaction(function () use ($data) {
+
+            $this->entity->fill($data);
+
+            $this->entity->save();
+        });
+
+        return $this->entity;
+    }
+
+    /**
+     * Update data
+     *
+     * @param $data
+     * @param $id
+     * @return BaseEntityContract
+     */
+    public function update($data, $id)
+    {
+        DB::transaction(function () use ($data, $id) {
+
+            $this->entity = $this->entity->find($id);
+
+            $this->entity->fill($data);
+
+            $this->entity->save();
+        });
+
+        return $this->entity;
+    }
+
+    /**
+     * Delete by id
+     *
+     * @param $id
+     * @return BaseEntityContract
+     */
+    public function delete($id)
+    {
+        DB::transaction(function() use($id) {
+
+            $this->entity->destroy($id);
+        });
+
+        return $this->entity;
+    }
+
+    /**
+     * Delete by any key
+     *
+     * @param $key
+     * @param $data
+     * @return BaseEntityContract
+     */
+    public function deleteBy($key, $value)
+    {
+        DB::transaction(function() use($key, $value) {
+
+            $this->entity->where($key, $value)->delete();
+        });
+
+        return $this->entity;
+    }
+}

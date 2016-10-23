@@ -1,0 +1,20 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Module *MODULENAME* Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for module.
+|
+*/
+Route::group(['namespace' => 'Web'], function () {
+
+    Route::get(''           , ['middleware' => 'authorization:*NAMESPACE*.index'      , 'as' => '*NAMESPACE*.index'     , '*MODULENAME*Controller@index']);
+    Route::get('create'     , ['middleware' => 'authorization:*NAMESPACE*.create'     , 'as' => '*NAMESPACE*.create'    , '*MODULENAME*Controller@create@{id}']);
+    Route::post(''          , ['middleware' => 'authorization:*NAMESPACE*.store'      , 'as' => '*NAMESPACE*.store'     , '*MODULENAME*Controller@store']);
+    Route::get('{id}/show'  , ['middleware' => 'authorization:*NAMESPACE*.show'       , 'as' => '*NAMESPACE*.show'      , '*MODULENAME*Controller@show@{id}']);
+    Route::get('{id}/edit'  , ['middleware' => 'authorization:*NAMESPACE*.edit'       , 'as' => '*NAMESPACE*.edit'      , '*MODULENAME*Controller@edit@{id}']);
+    Route::put('{id}'       , ['middleware' => 'authorization:*NAMESPACE*.update'     , 'as' => '*NAMESPACE*.update'    , '*MODULENAME*Controller@update@{id}']);
+    Route::delete('{id}'    , ['middleware' => 'authorization:*NAMESPACE*.destroy'    , 'as' => '*NAMESPACE*.destroy'   , '*MODULENAME*Controller@destroy@{id}']);
+});

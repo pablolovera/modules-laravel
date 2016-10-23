@@ -1,0 +1,132 @@
+<?php
+
+namespace App\Modules\Users\Http\Controllers\Web;
+
+use App\Core\Http\Controllers\Controller;
+use App\Modules\Users\Contracts\Services\UsersServiceContract;
+use App\Modules\Users\Transformers\UsersTransformer;
+use App\Modules\Users\Http\Requests\UsersRequest;
+
+class UsersController extends Controller
+{
+    /**
+     * @var UsersServiceContract
+     */
+    protected $service;
+
+    /**
+     * @var UsersTransformer
+     */
+    protected $transformer;
+
+    /**
+     * UsersController constructor.
+     *
+     * @param UsersServiceContract $service
+     * @param UsersTransformer $transformer
+     */
+    public function __construct(UsersServiceContract $service, UsersTransformer $transformer)
+    {
+        $this->service      = $service;
+        $this->transformer  = $transformer;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $data['all'] = $this->service->all();
+
+        return view('users:list', $data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $data['resource']   = [];
+        $data['route']      = route('userscontroller.store');
+
+        return view('users:form', $data);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param UsersRequest|\Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(UsersRequest $request)
+    {
+        $this->service->store($request);
+
+        alert()->success('Saved!!');
+
+        return redirect()->route('userscontroller.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $data['resource']   = $this->service->show($id);
+        $data['route']      = route('userscontroller.edit', $id);
+
+        return view('users:show', $data);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data['resource']   = $this->service->show($id);
+        $data['route']      = route('userscontroller.update', $id);
+
+        return view('users:form', $data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UsersRequest|\Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UsersRequest $request, $id)
+    {
+        $this->service->update($request, $id);
+
+        alert()->success('Updated!!');
+
+        return redirect()->route('userscontroller.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        alert()->success('Deleted!!');
+
+        $this->service->destroy($id);
+
+        return redirect()->route('userscontroller.index');
+    }
+}

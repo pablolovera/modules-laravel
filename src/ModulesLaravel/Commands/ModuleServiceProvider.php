@@ -1,14 +1,13 @@
 <?php
 
-namespace PabloLovera\ModulesLaravel\Commands;
+namespace App\Core\Console\Commands;
 
 use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
+use App\Core\Console\Traits\CommandTrait;
 
 class ModuleServiceProvider extends Command
 {
     use CommandTrait;
-
     /**
      * The name and signature of the console command.
      *
@@ -28,7 +27,14 @@ class ModuleServiceProvider extends Command
      *
      * @var string
      * */
-    protected $stub = 'service-provider';
+    protected $stub = 'module-module-service-provider';
+
+    /**
+     * The directory stubs
+     *
+     * @var string
+     * */
+    protected $pathStubs = 'modules';
 
     /**
      * Create a new command instance.
@@ -50,13 +56,15 @@ class ModuleServiceProvider extends Command
         $moduleDirectory    = config('module.modules_directory');
         $module             = $this->argument('module');
         $name               = $this->argument('name');
-        $toDirectory        = $moduleDirectory . $module;
+        $toDirectory        = $moduleDirectory . $module . '/Providers';
+
+        $lowerName          = $this->getLowerName($name);
 
         $content            = $this->getContents($this->stub);
 
         $content            = $this->replaceName($name, $content);
+        $content            = $this->replaceLowerName($lowerName, $content);
         $content            = $this->replaceModuleName($module, $content);
-        $content            = $this->replaceModuleNamespace($module, $content);
         $content            = $this->replaceRoutePrefix($module, $content);
 
         $this->doDirectory($toDirectory);
@@ -64,5 +72,10 @@ class ModuleServiceProvider extends Command
         $this->writeFile($content, $toDirectory, $name, $this->stub);
 
         $this->info('The Module ' . $module .' has been received a new service provider: ' . $name . '. Be happy!');
+    }
+
+    public function getLowerName($name)
+    {
+        return strtolower(str_replace('ServiceProvider', '', $name));
     }
 }

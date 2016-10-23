@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Modules\*MODULENAME*\Services;
+
+use App\Core\Services\BaseService;
+use App\Modules\*MODULENAME*\Contracts\Services\*NAME*Contract;
+use App\Modules\*MODULENAME*\Contracts\Repositories\*REPOSITORYNAME*Contract;
+
+class *NAME* extends BaseService implements *NAME*Contract
+{
+    /**
+     * @var *REPOSITORYNAME*Contract
+     */
+    protected $repository;
+
+    /**
+     * *NAME*Service constructor.
+     * @param *REPOSITORYNAME*Contract $repository
+     */
+    public function __construct(*REPOSITORYNAME*Contract $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function all()
+    {
+        return $this->repository->all();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function show($id)
+    {
+        return $this->repository->find($id);
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function store($data)
+    {
+        // TODO: Implements the fields of store() method. If necessary
+
+        return $this->repository->save($data);
+    }
+
+    /**
+     * @param $data
+     * @param $id
+     * @return mixed
+     */
+    public function update($data, $id)
+    {
+        // TODO: Implements the fields of update() method. If necessary
+
+        return $this->repository->update($data, $id);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function destroy($id)
+    {
+        return $this->repository->delete($id);
+    }
+}

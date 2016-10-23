@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Core\Contracts\Services;
+
+interface BaseServiceContract
+{
+    /**
+     * @param $id
+     * @param array $columns
+     * @return mixed
+     */
+    public function find($id, $columns = ['*']);
+
+    /**
+     * @param $field
+     * @param $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function findAllBy($field, $value, $columns = ['*']);
+
+    /**
+     * @param $field
+     * @param $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function findBy($field, $value, $columns = ['*']);
+
+    /**
+     * @param $key
+     * @param $value
+     * @return mixed
+     */
+    public function existsBy($key, $value);
+
+    /**
+     * @param int $perPage
+     * @return mixed
+     */
+    public function paginate($perPage = 10);
+
+    /**
+     * @param $key
+     * @param $data
+     * @return mixed
+     */
+    public function deleteBy($key, $data);
+}

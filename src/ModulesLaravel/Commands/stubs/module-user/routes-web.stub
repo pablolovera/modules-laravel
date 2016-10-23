@@ -1,0 +1,20 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Module Users Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for module.
+|
+*/
+Route::group(['namespace' => 'Web'], function () {
+
+    Route::get(''           , ['middleware' => 'authorization:users.index'      , 'as' => 'users.index'     , 'UsersController@index']);
+    Route::get('create'     , ['middleware' => 'authorization:users.create'     , 'as' => 'users.create'    , 'UsersController@create@{id}']);
+    Route::post(''          , ['middleware' => 'authorization:users.store'      , 'as' => 'users.store'     , 'UsersController@store']);
+    Route::get('{id}/show'  , ['middleware' => 'authorization:users.show'       , 'as' => 'users.show'      , 'UsersController@show@{id}']);
+    Route::get('{id}/edit'  , ['middleware' => 'authorization:users.edit'       , 'as' => 'users.edit'      , 'UsersController@edit@{id}']);
+    Route::put('{id}'       , ['middleware' => 'authorization:users.update'     , 'as' => 'users.update'    , 'UsersController@update@{id}']);
+    Route::delete('{id}'    , ['middleware' => 'authorization:users.destroy'    , 'as' => 'users.destroy'   , 'UsersController@destroy@{id}']);
+});

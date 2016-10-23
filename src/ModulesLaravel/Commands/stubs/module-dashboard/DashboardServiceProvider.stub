@@ -1,0 +1,99 @@
+<?php
+
+namespace App\Modules\Dashboard\Providers;
+
+use App\Modules\Dashboard\Contracts\Entities\DashboardEntityContract;
+use App\Modules\Dashboard\Contracts\Repositories\DashboardRepositoryContract;
+use App\Modules\Dashboard\Contracts\Services\DashboardServiceContract;
+use App\Modules\Dashboard\Entities\DashboardEntity;
+use App\Modules\Dashboard\Repositories\DashboardRepository;
+use App\Modules\Dashboard\Services\DashboardService;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
+
+class DashboardServiceProvider extends ServiceProvider
+{
+    /**
+     * This namespace is applied to your controller routes.
+     *
+     * In addition, it is set as the URL generator's root namespace.
+     *
+     * @var string
+     */
+    protected $namespace = 'App\Modules\Dashboard\Http\Controllers';
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->loadViewsFrom(app_path('Modules/Dashboard/Resources/views'), 'dashboard');
+
+        $this->map();
+
+        $this->binding();
+    }
+
+    /**
+     * Define the routes for the application.
+     *
+     * @param  \Illuminate\Routing\Router  $router
+     * @return void
+     */
+    public function map()
+    {
+        $this->mapWebRoutes();
+
+        $this->mapApiRoutes();
+    }
+
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapWebRoutes()
+    {
+        Route::group([
+            'prefix'        => 'dashboard',
+            'middleware'    => ['web', 'auth'],
+            'namespace'     => $this->namespace,
+        ], function ($router) {
+            require app_path('Modules/Dashboard/Routes/web.php');
+        });
+    }
+
+    /**
+     * Define the "api" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapApiRoutes()
+    {
+        Route::group([
+            'middleware'    => 'api',
+            'namespace'     => $this->namespace,
+            'prefix'        => 'api/dashboard',
+        ], function ($router) {
+            require app_path('Modules/Dashboard/Routes/api.php');
+        });
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function binding()
+    {
+        $this->app->bind(DashboardEntityContract::class       , DashboardEntity::class);
+        $this->app->bind(DashboardRepositoryContract::class   , DashboardRepository::class);
+        $this->app->bind(DashboardServiceContract::class      , DashboardService::class);
+    }
+}

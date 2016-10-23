@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Modules\Dashboard\Repositories;
+
+use App\Core\Repositories\BaseRepository;
+use App\Modules\Dashboard\Contracts\Entities\DashboardEntityContract;
+use App\Modules\Dashboard\Contracts\Repositories\DashboardRepositoryContract;
+
+class DashboardRepository extends BaseRepository implements DashboardRepositoryContract
+{
+    /**
+     * DashboardRepository constructor.
+     * @param DashboardEntityContract $model
+     */
+    public function __construct(DashboardEntityContract $model)
+    {
+        $this->entity = $model;
+    }
+}

@@ -1,0 +1,99 @@
+<?php
+
+namespace App\Modules\Users\Providers;
+
+use App\Modules\Users\Contracts\Entities\UsersEntityContract;
+use App\Modules\Users\Contracts\Repositories\UsersRepositoryContract;
+use App\Modules\Users\Contracts\Services\UsersServiceContract;
+use App\Modules\Users\Entities\UsersEntity;
+use App\Modules\Users\Repositories\UsersRepository;
+use App\Modules\Users\Services\UsersService;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
+
+class UsersServiceProvider extends ServiceProvider
+{
+    /**
+     * This namespace is applied to your controller routes.
+     *
+     * In addition, it is set as the URL generator's root namespace.
+     *
+     * @var string
+     */
+    protected $namespace = 'App\Modules\Users\Http\Controllers';
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->loadViewsFrom(app_path('Modules/Users/resources/views'), 'users');
+
+        $this->map();
+
+        $this->binding();
+    }
+
+    /**
+     * Define the routes for the application.
+     *
+     * @param  \Illuminate\Routing\Router  $router
+     * @return void
+     */
+    public function map()
+    {
+        $this->mapWebRoutes();
+
+        $this->mapApiRoutes();
+    }
+
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapWebRoutes()
+    {
+        Route::group([
+            'prefix'        => 'users',
+            'middleware'    => ['web', 'auth'],
+            'namespace'     => $this->namespace,
+        ], function ($router) {
+            require app_path('Modules/Users/Routes/web.php');
+        });
+    }
+
+    /**
+     * Define the "api" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapApiRoutes()
+    {
+        Route::group([
+            'middleware'    => 'api',
+            'namespace'     => $this->namespace,
+            'prefix'        => 'api/users',
+        ], function ($router) {
+            require app_path('Modules/Users/Routes/api.php');
+        });
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function binding()
+    {
+        $this->app->bind(UsersEntityContract::class       , UsersEntity::class);
+        $this->app->bind(UsersRepositoryContract::class   , UsersRepository::class);
+        $this->app->bind(UsersServiceContract::class      , UsersService::class);
+    }
+}

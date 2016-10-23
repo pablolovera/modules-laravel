@@ -1,0 +1,8 @@
+<?php
+
+namespace App\Core\Contracts\Entities;
+
+interface BaseEntityContract
+{
+    // Silence is golden...
+}

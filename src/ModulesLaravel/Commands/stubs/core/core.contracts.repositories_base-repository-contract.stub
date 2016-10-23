@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Core\Contracts\Repositories;
+
+interface BaseRepositoryContract
+{
+    /**
+     * @param array $columns
+     * @return mixed
+     */
+    public function all($columns = ['*']);
+
+    /**
+     * @param $id
+     * @param array $columns
+     * @return mixed
+     */
+    public function find($id, $columns = ['*']);
+
+    /**
+     * @param $field
+     * @param $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function findBy($field, $value, $columns = ['*']);
+
+    /**
+     * @param $key
+     * @param $data
+     * @return mixed
+     */
+    public function existsBy($key, $data);
+
+    /**
+     * @param $field
+     * @param $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function findAllBy($field, $value, $columns = ['*']);
+
+    /**
+     * @param int $perPage
+     * @param array $columns
+     * @return mixed
+     */
+    public function paginate($perPage = 1, $columns = ['*']);
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function create($data = []);
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function save($data = []);
+
+    /**
+     * @param $data
+     * @param $id
+     * @return mixed
+     */
+    public function update($data, $id);
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function delete($id);
+
+    /**
+     * @param $key
+     * @param $data
+     * @return mixed
+     */
+    public function deleteBy($key, $data);
+}

@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Modules\*MODULENAME*\Mail;
+
+use App\Core\Mail\BaseMail;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class *NAME* extends BaseMail
+{
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->view('*LOWERNAME*:mails.name');
+    }
+}

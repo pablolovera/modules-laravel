@@ -1,0 +1,132 @@
+<?php
+
+namespace App\Modules\Dashboard\Http\Controllers\Web;
+
+use App\Core\Http\Controllers\Controller;
+use App\Modules\Dashboard\Contracts\Services\DashboardServiceContract;
+use App\Modules\Dashboard\Transformers\DashboardTransformer;
+use App\Modules\Dashboard\Http\Requests\DashboardRequest;
+
+class DashboardController extends Controller
+{
+    /**
+     * @var DashboardServiceContract
+     */
+    protected $service;
+
+    /**
+     * @var DashboardTransformer
+     */
+    protected $transformer;
+
+    /**
+     * DashboardController constructor.
+     *
+     * @param DashboardServiceContract $service
+     * @param DashboardTransformer $transformer
+     */
+    public function __construct(DashboardServiceContract $service, DashboardTransformer $transformer)
+    {
+        $this->service      = $service;
+        $this->transformer  = $transformer;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $data['all'] = $this->service->all();
+
+        return view('dashboard::list', $data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $data['resource']   = [];
+        $data['route']      = route('dashboard.store');
+
+        return view('dashboard::form', $data);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param DashboardRequest|\Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(DashboardRequest $request)
+    {
+        $this->service->store($request);
+
+        alert()->success('Saved!!');
+
+        return redirect()->route('dashboard.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $data['resource']   = $this->service->show($id);
+        $data['route']      = route('dashboard.edit', $id);
+
+        return view('dashboard::show', $data);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data['resource']   = $this->service->show($id);
+        $data['route']      = route('dashboard.update', $id);
+
+        return view('dashboard::form', $data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param DashboardRequest|\Illuminate\Http\Request $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(DashboardRequest $request, $id)
+    {
+        $this->service->update($request, $id);
+
+        alert()->success('Updated!!');
+
+        return redirect()->route('dashboard.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        alert()->success('Deleted!!');
+
+        $this->service->destroy($id);
+
+        return redirect()->route('dashboard.index');
+    }
+}

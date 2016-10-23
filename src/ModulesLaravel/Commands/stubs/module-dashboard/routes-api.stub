@@ -1,0 +1,22 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Module Dashboard API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your module. These
+| routes are loaded by the RouteDashboardServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
+Route::group(['namespace' => 'API', 'middleware' => ['client_credentials']], function () {
+
+    Route::get(''           , 'DashboardController@index');
+    Route::get('{id}'       , 'DashboardController@show@{id}');
+    Route::post(''          , 'DashboardController@store');
+    Route::put('{id}'       , 'DashboardController@update@{id}');
+    Route::delete('{id}'    , 'DashboardController@destroy@{id}');
+
+});

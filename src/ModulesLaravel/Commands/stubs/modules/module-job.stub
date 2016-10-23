@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Modules\*MODULENAME*\Jobs;
+
+use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Core\Jobs\BaseJob;
+
+class *NAME* extends BaseJob implements ShouldQueue
+{
+    /**
+     * Create a new job instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        //
+    }
+}

@@ -1,11 +1,13 @@
 <?php
 
-namespace PabloLovera\ModulesLaravel\Traits;
+namespace App\Core\Console\Traits;
 
 use Carbon\Carbon;
 
 trait CommandTrait
 {
+
+
     /**
      * @return string
      */
@@ -36,7 +38,15 @@ trait CommandTrait
      */
     public function getContents($stubName)
     {
-        return file_get_contents(__DIR__.'/../../ModulesLaravel/Commands/stubs/' . $stubName .'.stub');
+        return file_get_contents('/../../Commands/stubs/' . $this->pathStubs .'/' . $stubName .'.stub');
+    }
+
+    /**
+     * @return string
+     */
+    public function getConfigAppContents()
+    {
+        return file_get_contents('config/app.php');
     }
 
     /**
@@ -45,11 +55,9 @@ trait CommandTrait
      * @param $name
      * @param null $typeFile
      */
-    public function writeFile($dados, $toDirectory, $name, $typeFile = null)
+    public function writeFile($dados, $toDirectory, $file_name)
     {
-        $fileName   = $this->getContextFileName($typeFile);
-
-        $this->write($toDirectory . '/' . $name . $fileName . '.php', $dados);
+        $this->write($toDirectory . '/' . $file_name . '.php', $dados);
     }
 
     /**
@@ -98,15 +106,22 @@ trait CommandTrait
      * @param $stubName
      * @return string
      */
-    public function handleStubName($stubName)
+    public function handleStubName($stubName, $allLower = false)
     {
         $name = explode('_', $stubName);
 
         $file = $this->getContextFileName($name[1]);
 
+        if ( $allLower )
+            $file = strtolower($file);
+
         $path = $name[0];
         $path = str_replace('.', ' ', $path);
-        $path = ucwords(strtolower($path));
+        $path = strtolower($path);
+
+        if ( ! $allLower)
+            $path = ucwords($path);
+
         $path = str_replace(' ', '/', $path);
 
         $object = new \StdClass();
@@ -131,19 +146,69 @@ trait CommandTrait
      * @param $content
      * @return mixed
      */
-    public function replaceNameLower($name, $content)
+    public function replaceLowerName($name, $content)
     {
-        return str_replace('*NAMELOWER*', strtolower($name), $content);
+        return str_replace('*LOWERNAME*', $name, $content);
     }
 
     /**
-     * @param $module
+     * @param $name
      * @param $content
      * @return mixed
      */
-    public function replaceModuleNameLower($module, $content)
+    public function replaceNamespace($namespace, $content)
     {
-        return str_replace('*MODULENAMELOWER*', strtolower($module), $content);
+        return str_replace('*NAMESPACE*', $namespace, $content);
+    }
+
+    /**
+     * @param $name
+     * @param $content
+     * @return mixed
+     */
+    public function replaceRepositoryName($name, $content)
+    {
+        return str_replace('*REPOSITORYNAME*', $name, $content);
+    }
+
+    /**
+     * @param $name
+     * @param $content
+     * @return mixed
+     */
+    public function replaceRequestName($name, $content)
+    {
+        return str_replace('*REQUESTNAME*', $name, $content);
+    }
+
+    /**
+     * @param $name
+     * @param $content
+     * @return mixed
+     */
+    public function replaceServiceName($name, $content)
+    {
+        return str_replace('*SERVICENAME*', $name, $content);
+    }
+
+    /**
+     * @param $name
+     * @param $content
+     * @return mixed
+     */
+    public function replaceEntityName($name, $content)
+    {
+        return str_replace('*ENTITYNAME*', $name, $content);
+    }
+
+    /**
+     * @param $name
+     * @param $content
+     * @return mixed
+     */
+    public function replaceTransformerName($name, $content)
+    {
+        return str_replace('*TRANSFORMERNAME*', $name, $content);
     }
 
     /**
@@ -161,29 +226,9 @@ trait CommandTrait
      * @param $content
      * @return mixed
      */
-    public function replaceCamelModuleName($module, $content)
-    {
-        return str_replace('*CAMELMODULENAME*', camel_case($module), $content);
-    }
-
-    /**
-     * @param $namespace
-     * @param $content
-     * @return mixed
-     */
-    public function replaceModuleNamespace($namespace, $content)
-    {
-        return str_replace('*NAMESPACE*', strtolower($namespace), $content);
-    }
-
-    /**
-     * @param $module
-     * @param $content
-     * @return mixed
-     */
     public function replaceRoutePrefix($module, $content)
     {
-        return str_replace('*ROUTEPREFIX*', strtolower($module), $content);
+        return str_replace('*ROUTEPREFIX*', str_plural(strtolower($module)), $content);
     }
 
     /**
@@ -208,5 +253,14 @@ trait CommandTrait
         $name = str_replace(' ', '', $name);
 
         return str_replace('*MIGRATIONNAME*', $name, $content);
+    }
+
+    /**
+     * @param $source
+     * @param null $target
+     */
+    public function backupFile($path, $name)
+    {
+        copy($path . '/' . $name, $path . '/' . $name . '.backup');
     }
 }

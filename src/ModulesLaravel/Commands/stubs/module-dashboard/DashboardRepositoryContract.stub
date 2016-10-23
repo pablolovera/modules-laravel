@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Modules\Dashboard\Contracts\Repositories;
+
+use App\Core\Contracts\Repositories\BaseRepositoryContract;
+
+interface DashboardRepositoryContract extends BaseRepositoryContract
+{
+    // Silence is golden...
+}
