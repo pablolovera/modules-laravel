@@ -39,7 +39,6 @@ class ModuleViews extends BaseModules
      */
     public function handle()
     {
-        dd($this->pathStubs);
         $this->setModule($this->argument('module'));
         $this->setToDirectory('Resources');
 
@@ -53,8 +52,8 @@ class ModuleViews extends BaseModules
         $this->doDirectory($this->toDirectory . '/views/mails');
 
         $this->copyStubTo('/views/list.blade.php');
-        $this->copyStubTo('/views/form.blade.php');
         $this->copyStubTo('/views/show.blade.php');
+        $this->copyStubTo('/views/form.blade.php');
 
         $this->info('The Module ' . $this->module .' has been received a new views. Be happy!');
     }
