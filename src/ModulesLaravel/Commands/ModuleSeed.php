@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Core\Console\Commands;
+namespace PabloLovera\ModulesLaravel\Commands;
 
 use Illuminate\Console\Command;
-use App\Core\Console\Traits\CommandTrait;
+use PabloLovera\ModulesLaravel\Traits\CommandTrait;
 
 class ModuleSeed extends Command
 {
@@ -71,8 +71,6 @@ class ModuleSeed extends Command
     protected function seedOne($module, $class)
     {
         $this->seed($module, $class);
-
-        $this->info('The Module ' . $module .' has been seeded. Be happy!');
     }
 
     /**
@@ -81,34 +79,37 @@ class ModuleSeed extends Command
      */
     protected function seedAll($moduleDirectory, $module)
     {
-        foreach ( $this->classes($moduleDirectory) as $class ) :
+        foreach ( $this->classes($moduleDirectory) as $class )
 
             $this->seed($module, $class);
-
-        endforeach;
-
-        $this->info('The Module ' . $module .' has been seeded. Be happy!');
     }
 
     /**
      * @param $directory
      * @return array
      */
-    protected function classes($directory)
+    private function classes($directory)
     {
-        $arquivos = new \DirectoryIterator($directory);
+        $files = new \DirectoryIterator($directory);
 
         $classes = [];
-        foreach ($arquivos as $arquivo) :
 
-            if ( $arquivo->getExtension() == 'php') :
+        foreach ($files as $file) :
 
-                $classes[] = explode('.php', $arquivo->getFilename())[0];
+            $classes[] = $this->onlyPhp($file);
+            /*if ( $arquivo->getExtension() == 'php')
 
-            endif;
+                $classes[] = explode('.php', $arquivo->getFilename())[0];*/
 
         endforeach;
 
         return $classes;
+    }
+
+    private function onlyPhp($file)
+    {
+        if ( $file->getExtension() == 'php')
+
+            return explode('.php', $file->getFilename())[0];
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Core\Console\Commands;
+namespace PabloLovera\ModulesLaravel\Commands;
 
 use Illuminate\Console\Command;
-use App\Core\Console\Traits\CommandTrait;
+use PabloLovera\ModulesLaravel\Traits\CommandTrait;
 
 class ModuleServiceContract extends Command
 {

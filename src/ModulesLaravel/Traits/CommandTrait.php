@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Console\Traits;
+namespace PabloLovera\ModulesLaravel\Traits;
 
 use Carbon\Carbon;
 

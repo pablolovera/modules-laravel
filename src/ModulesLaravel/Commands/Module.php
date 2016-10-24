@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Core\Console\Commands;
+namespace PabloLovera\ModulesLaravel\Commands;
 
 use Illuminate\Console\Command;
-use App\Core\Console\Traits\CommandTrait;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
+use PabloLovera\ModulesLaravel\Traits\CommandTrait;
 
 class Module extends Command
 {

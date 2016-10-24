@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Core\Console\Commands;
+namespace PabloLovera\ModulesLaravel\Commands;
 
 use Illuminate\Console\Command;
-use App\Core\Console\Traits\CommandTrait;
+use PabloLovera\ModulesLaravel\Traits\CommandTrait;
 
 class ModuleViews extends Command
 {
@@ -25,7 +25,7 @@ class ModuleViews extends Command
      *
      * @var string
      * */
-    protected $stub = 'view-dados';
+    protected $stub = 'module-view';
 
     /**
      * The directory stubs
@@ -62,6 +62,10 @@ class ModuleViews extends Command
         $this->doDirectory($toDirectory . '/Resources/views/vendor');
         $this->doDirectory($toDirectory . '/Resources/views/mails');
 
-        $this->info('The Module ' . $module .' has been received a new inputs view. Be happy!');
+        copy($this->pathStubs . $this->stub . '.stub', $toDirectory . 'Resource/views/list.blade.php');
+        copy($this->pathStubs . $this->stub . '.stub', $toDirectory . 'Resource/views/form.blade.php');
+        copy($this->pathStubs . $this->stub . '.stub', $toDirectory . 'Resource/views/show.blade.php');
+
+        $this->info('The Module ' . $module .' has been received a new views. Be happy!');
     }
 }
