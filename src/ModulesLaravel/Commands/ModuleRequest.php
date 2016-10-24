@@ -2,12 +2,8 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
-
-class ModuleRequest extends Command
+class ModuleRequest extends BaseModules
 {
-    use CommandTrait;
     /**
      * The name and signature of the console command.
      *
@@ -30,13 +26,6 @@ class ModuleRequest extends Command
     protected $stub = 'module-request';
 
     /**
-     * The directory stubs
-     *
-     * @var string
-     * */
-    protected $pathStubs = 'modules';
-
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -53,20 +42,25 @@ class ModuleRequest extends Command
      */
     public function handle()
     {
-        $moduleDirectory    = config('module.modules_directory');
-        $module             = $this->argument('module');
-        $name               = $this->argument('name');
-        $toDirectory        = $moduleDirectory . $module . '/Http/Requests';
+        $this->setModule($this->argument('module'));
+        $this->setFileName($this->argument('name'));
+        $this->setToDirectory('Http/Requests');
 
-        $content            = $this->getContents($this->stub);
+        $this->handleContent();
 
-        $content            = $this->replaceName($name, $content);
-        $content            = $this->replaceModuleName($module, $content);
+        $this->fire();
 
-        $this->doDirectory($toDirectory);
+        $this->info('The Module ' . $this->module .' has been received a new request: ' . $this->fileName . '. Be happy!');
+    }
 
-        $this->writeFile($content, $toDirectory, $name, $this->stub);
+    /**
+     * Handle de content file
+     */
+    private function handleContent()
+    {
+        $this->content  = $this->getContents($this->stub);
 
-        $this->info('The Module ' . $module .' has been received a new request: ' . $name . '. Be happy!');
+        $this->content  = $this->replaceName($this->fileName, $this->content);
+        $this->content  = $this->replaceModuleName($this->module, $this->content);
     }
 }

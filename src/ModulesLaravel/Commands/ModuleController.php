@@ -2,13 +2,8 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
-
-class ModuleController extends Command
+class ModuleController extends BaseModules
 {
-    use CommandTrait;
-
     /**
      * The name and signature of the console command.
      *
@@ -38,34 +33,6 @@ class ModuleController extends Command
     protected $stubWeb = 'module-controller-web';
 
     /**
-     * The directory stubs
-     *
-     * @var string
-     * */
-    protected $pathStubs = 'modules';
-
-    /**
-     * The directory modules
-     *
-     * @var string
-     * */
-    private $moduleDirectory;
-
-    /**
-     * The module name
-     *
-     * @var string
-     * */
-    private $module;
-
-    /**
-     * The directory target
-     *
-     * @var string
-     * */
-    private $toDirectory;
-
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -82,14 +49,13 @@ class ModuleController extends Command
      */
     public function handle()
     {
-        $this->moduleDirectory    = config('module.modules_directory');
-        $this->module             = $this->argument('module');
-        $this->name               = $this->argument('name');
+        $this->setModule($this->argument('module'));
+        $this->setFileName($this->argument('name'));
 
         $this->apiController();
         $this->webController();
 
-        $this->info('The Module ' . $this->module .' has been received a new controller: ' . $this->name . '. Be happy!');
+        $this->info('The Module ' . $this->module .' has been received a new controller: ' . $this->fileName . '. Be happy!');
     }
 
     /**
@@ -99,15 +65,13 @@ class ModuleController extends Command
      */
     private function apiController()
     {
-        $content = $this->replaceContent($this->stubApi);
+        $this->setToDirectory('Http/Controllers/API');
 
-        $this->toDirectory        = $this->moduleDirectory . $this->module . '/Http/Controllers/API';
+        $this->content  = $this->getContents($this->stubApi);
 
-        $this->doDirectory($this->toDirectory);
+        $this->handleContent();
 
-        $this->writeFile($content, $this->toDirectory, $this->name);
-
-        return;
+        $this->fire();
     }
 
     /**
@@ -117,42 +81,33 @@ class ModuleController extends Command
      */
     private function webController()
     {
-        $content = $this->replaceContent($this->stubWeb);
+        $this->setToDirectory('Http/Controllers/Web');
 
-        $this->toDirectory        = $this->moduleDirectory . $this->module . '/Http/Controllers/Web';
+        $this->content  = $this->getContents($this->stubApi);
 
-        $this->doDirectory($this->toDirectory);
+        $this->handleContent();
 
-        $this->writeFile($content, $this->toDirectory, $this->name);
-
-        return;
+        $this->fire();
     }
 
     /**
-     * Replace de contents in the stub
-     *
-     * @param $stub
-     * @return mixed|string
+     * Handle de content file
      */
-    private function replaceContent($stub)
+    private function handleContent()
     {
-        $content            = $this->getContents($stub);
+        $requestName        = $this->getRequestName($this->fileName);
+        $serviceName        = $this->getServiceName($this->fileName);
+        $transformerName    = $this->getTransformerName($this->fileName);
 
-        $requestName        = $this->getRequestName($this->name);
-        $serviceName        = $this->getServiceName($this->name);
-        $transformerName    = $this->getTransformerName($this->name);
-
-        $content            = $this->replaceModuleName($this->module, $content);
-        $content            = $this->replaceName($this->name, $content);
-        $content            = $this->replaceRequestName($requestName, $content);
-        $content            = $this->replaceServiceName($serviceName, $content);
-        $content            = $this->replaceTransformerName($transformerName, $content);
-        $content            = $this->replaceName($this->name, $content);
-        $content            = $this->replaceLowerName(strtolower($this->name), $content);
-        $content            = $this->replaceNamespace(strtolower($this->module), $content);
-        $content            = $this->replaceModuleName($this->module, $content);
-
-        return $content;
+        $this->content      = $this->replaceModuleName($this->module, $this->content);
+        $this->content      = $this->replaceName($this->fileName, $this->content);
+        $this->content      = $this->replaceRequestName($requestName, $this->content);
+        $this->content      = $this->replaceServiceName($serviceName, $this->content);
+        $this->content      = $this->replaceTransformerName($transformerName, $this->content);
+        $this->content      = $this->replaceName($this->fileName, $this->content);
+        $this->content      = $this->replaceLowerName(strtolower($this->fileName), $this->content);
+        $this->content      = $this->replaceNamespace(strtolower($this->module), $this->content);
+        $this->content      = $this->replaceModuleName($this->module, $this->content);
     }
 
     /**

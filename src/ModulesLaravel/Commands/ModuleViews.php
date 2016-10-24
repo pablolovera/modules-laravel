@@ -2,12 +2,8 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
-
-class ModuleViews extends Command
+class ModuleViews extends BaseModules
 {
-    use CommandTrait;
     /**
      * The name and signature of the console command.
      *
@@ -28,12 +24,6 @@ class ModuleViews extends Command
     protected $stub = 'module-view';
 
     /**
-     * The directory stubs
-     *
-     * @var string
-     * */
-    protected $pathStubs = 'modules';
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -49,23 +39,22 @@ class ModuleViews extends Command
      */
     public function handle()
     {
-        $moduleDirectory    = config('module.modules_directory');
-        $module             = $this->argument('module');
-        $toDirectory        = $moduleDirectory . $module;
+        $this->setModule($this->argument('module'));
+        $this->setToDirectory('Resources');
 
-        $this->doDirectory($toDirectory . '/Resources');
-        $this->doDirectory($toDirectory . '/Resources/assets');
-        $this->doDirectory($toDirectory . '/Resources/assets/js');
-        $this->doDirectory($toDirectory . '/Resources/assets/sass');
-        $this->doDirectory($toDirectory . '/Resources/views');
-        $this->doDirectory($toDirectory . '/Resources/views/errors');
-        $this->doDirectory($toDirectory . '/Resources/views/vendor');
-        $this->doDirectory($toDirectory . '/Resources/views/mails');
+        $this->doDirectory($this->toDirectory);
+        $this->doDirectory($this->toDirectory . '/assets');
+        $this->doDirectory($this->toDirectory . '/assets/js');
+        $this->doDirectory($this->toDirectory . '/assets/sass');
+        $this->doDirectory($this->toDirectory . '/views');
+        $this->doDirectory($this->toDirectory . '/views/errors');
+        $this->doDirectory($this->toDirectory . '/views/vendor');
+        $this->doDirectory($this->toDirectory . '/views/mails');
 
-        copy($this->pathStubs . $this->stub . '.stub', $toDirectory . 'Resource/views/list.blade.php');
-        copy($this->pathStubs . $this->stub . '.stub', $toDirectory . 'Resource/views/form.blade.php');
-        copy($this->pathStubs . $this->stub . '.stub', $toDirectory . 'Resource/views/show.blade.php');
+        $this->copyStubTo('Resource/views/list.blade.php');
+        $this->copyStubTo('Resource/views/form.blade.php');
+        $this->copyStubTo('Resource/views/show.blade.php');
 
-        $this->info('The Module ' . $module .' has been received a new views. Be happy!');
+        $this->info('The Module ' . $this->module .' has been received a new views. Be happy!');
     }
 }

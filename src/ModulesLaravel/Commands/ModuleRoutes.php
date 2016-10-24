@@ -2,12 +2,8 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
-
-class ModuleRoutes extends Command
+class ModuleRoutes extends BaseModules
 {
-    use CommandTrait;
     /**
      * The name and signature of the console command.
      *
@@ -37,34 +33,6 @@ class ModuleRoutes extends Command
     protected $stubWeb = 'module-routes-web';
 
     /**
-     * The directory stubs
-     *
-     * @var string
-     * */
-    protected $pathStubs = 'modules';
-
-    /**
-     * The directory modules
-     *
-     * @var string
-     * */
-    private $moduleDirectory = '';
-
-    /**
-     * The module name
-     *
-     * @var string
-     * */
-    private $module = '';
-
-    /**
-     * The directory target
-     *
-     * @var string
-     * */
-    private $toDirectory = '';
-
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -81,11 +49,11 @@ class ModuleRoutes extends Command
      */
     public function handle()
     {
-        $this->moduleDirectory    = config('module.modules_directory');
-        $this->module             = $this->argument('module');
-        $this->toDirectory        = $this->moduleDirectory . $this->module . '/Routes';
+        $this->setModule($this->argument('module'));
+        $this->setToDirectory('Routes');
 
         $this->apiRoutes();
+
         $this->webRoutes();
 
         $this->info('The Module ' . $this->module .' has been received a new routes. Be happy!');
@@ -98,13 +66,13 @@ class ModuleRoutes extends Command
      */
     private function apiRoutes()
     {
-        $content            = $this->getContents($this->stubApi);
+        $this->setFileName('api');
 
-        $content            = $this->replaceModuleName($this->module, $content);
+        $this->content  = $this->getContents($this->stubApi);
 
-        $this->doDirectory($this->toDirectory);
+        $this->handleContent();
 
-        $this->writeFile($content, $this->toDirectory, 'api');
+        $this->fire();
 
         return;
     }
@@ -116,15 +84,24 @@ class ModuleRoutes extends Command
      */
     private function webRoutes()
     {
-        $content            = $this->getContents($this->stubWeb);
+        $this->setFileName('web');
 
-        $content            = $this->replaceModuleName($this->module, $content);
-        $content            = $this->replaceNamespace(strtolower($this->module), $content);
+        $this->content  = $this->getContents($this->stubWeb);
 
-        $this->doDirectory($this->toDirectory);
+        $this->handleContent();
 
-        $this->writeFile($content, $this->toDirectory, 'web');
+        $this->fire();
 
         return;
+    }
+
+    /**
+     * Handle de content file
+     */
+    private function handleContent()
+    {
+        $this->content  = $this->replaceName($this->fileName, $this->content);
+        $this->content  = $this->replaceModuleName($this->module, $this->content);
+        $this->content  = $this->replaceNamespace(strtolower($this->module), $this->content);
     }
 }

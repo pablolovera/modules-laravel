@@ -2,12 +2,8 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
-
-class ModuleRepository extends Command
+class ModuleRepository extends BaseModules
 {
-    use CommandTrait;
     /**
      * The name and signature of the console command.
      *
@@ -30,13 +26,6 @@ class ModuleRepository extends Command
     protected $stub = 'module-repository';
 
     /**
-     * The directory stubs
-     *
-     * @var string
-     * */
-    protected $pathStubs = 'modules';
-
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -53,24 +42,30 @@ class ModuleRepository extends Command
      */
     public function handle()
     {
-        $moduleDirectory    = config('module.modules_directory');
-        $module             = $this->argument('module');
-        $name               = $this->argument('name');
-        $toDirectory        = $moduleDirectory . $module . '/Repositories';
+        $this->setModule($this->argument('module'));
+        $this->setFileName($this->argument('name'));
+        $this->setToDirectory('Repositories');
 
-        $entityName         = $this->getEntityName($name);
+        $this->handleContent();
 
-        $content            = $this->getContents($this->stub);
+        $this->fire();
 
-        $content            = $this->replaceName($name, $content);
-        $content            = $this->replaceEntityName($entityName, $content);
-        $content            = $this->replaceModuleName($module, $content);
+        $this->info('The Module ' . $this->module .' has been received a new repository: ' . $this->fileName . '. Be happy!');
+    }
 
-        $this->doDirectory($toDirectory);
+    /**
+     * Handle de content file
+     */
+    private function handleContent()
+    {
+        $entityName     = $this->getEntityName($this->fileName);
 
-        $this->writeFile($content, $toDirectory, $name, $this->stub);
+        $this->content  = $this->getContents($this->stub);
 
-        $this->info('The Module ' . $module .' has been received a new repository: ' . $name . '. Be happy!');
+        $this->content  = $this->replaceEntityName($entityName, $this->content);
+
+        $this->content  = $this->replaceName($this->fileName, $this->content);
+        $this->content  = $this->replaceModuleName($this->module, $this->content);
     }
 
     public function getEntityName($name)

@@ -2,12 +2,8 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
-
-class ModuleService extends Command
+class ModuleService extends BaseModules
 {
-    use CommandTrait;
     /**
      * The name and signature of the console command.
      *
@@ -30,13 +26,6 @@ class ModuleService extends Command
     protected $stub = 'module-service';
 
     /**
-     * The directory stubs
-     *
-     * @var string
-     * */
-    protected $pathStubs = 'modules';
-
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -53,24 +42,29 @@ class ModuleService extends Command
      */
     public function handle()
     {
-        $moduleDirectory    = config('module.modules_directory');
-        $module             = $this->argument('module');
-        $name               = $this->argument('name');
-        $toDirectory        = $moduleDirectory . $module . '/Services';
+        $this->setModule($this->argument('module'));
+        $this->setFileName($this->argument('name'));
+        $this->setToDirectory('Services');
 
-        $repositoryName     = $this->getRepositoryName($name);
+        $this->handleContent();
 
-        $content            = $this->getContents($this->stub);
+        $this->fire();
 
-        $content            = $this->replaceName($name, $content);
-        $content            = $this->replaceRepositoryName($repositoryName, $content);
-        $content            = $this->replaceModuleName($module, $content);
+        $this->info('The Module ' . $this->module .' has been received a new service: ' . $this->fileName . '. Be happy!');
+    }
 
-        $this->doDirectory($toDirectory);
+    /**
+     * Handle de content file
+     */
+    private function handleContent()
+    {
+        $this->content  = $this->getContents($this->stub);
 
-        $this->writeFile($content, $toDirectory, $name, $this->stub);
+        $repositoryName = $this->getRepositoryName($this->fileName);
 
-        $this->info('The Module ' . $module .' has been received a new service: ' . $name . '. Be happy!');
+        $this->content  = $this->replaceName($this->fileName, $this->content);
+        $this->content  = $this->replaceModuleName($this->module, $this->content);
+        $this->content  = $this->replaceRepositoryName($repositoryName, $this->content);
     }
 
     public function getRepositoryName($name)

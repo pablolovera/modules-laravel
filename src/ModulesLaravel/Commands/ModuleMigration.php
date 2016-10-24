@@ -2,12 +2,8 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
-
-class ModuleMigration extends Command
+class ModuleMigration extends BaseModules
 {
-    use CommandTrait;
     /**
      * The name and signature of the console command.
      *
@@ -30,13 +26,6 @@ class ModuleMigration extends Command
     protected $stub = 'module-migration';
 
     /**
-     * The directory stubs
-     *
-     * @var string
-     * */
-    protected $pathStubs = 'modules';
-
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -53,22 +42,27 @@ class ModuleMigration extends Command
      */
     public function handle()
     {
-        $moduleDirectory    = config('module.modules_directory');
-        $module             = $this->argument('module');
-        $name               = $this->argument('name');
-        $toDirectory        = $moduleDirectory . $module . '/Database/migrations';
+        $this->setModule($this->argument('module'));
+        $this->setFileName($this->argument('name'));
+        $this->setToDirectory('Database/migrations');
 
-        $content            = $this->getContents($this->stub);
+        $this->handleContent();
 
-        $content            = $this->replaceMigrationName(strtolower($name), $content);
-        $content            = $this->replaceTableName(strtolower($module), $content);
+        $this->fire();
 
-        $name               = $this->timestampToMigration() . $name;
+        $this->info('The Module ' . $this->module .' has been received a new migration: ' . $this->fileName . '. Be happy!');
+    }
 
-        $this->doDirectory($toDirectory);
+    /**
+     * Handle de content file
+     */
+    private function handleContent()
+    {
+        $this->content  = $this->getContents($this->stub);
 
-        $this->writeFile($content, $toDirectory, $name);
+        $this->content  = $this->replaceMigrationName(strtolower($this->fileName), $this->content);
+        $this->content  = $this->replaceTableName(strtolower($this->module), $this->content);
 
-        $this->info('The Module ' . $module .' has been received a new migration: ' . $name . '. Be happy!');
+        $this->fileName = $this->timestampToMigration() . $this->fileName;
     }
 }
