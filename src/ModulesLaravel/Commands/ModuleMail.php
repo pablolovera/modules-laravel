@@ -2,12 +2,8 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
-
-class ModuleMail extends Command
+class ModuleMail extends BaseModules
 {
-    use CommandTrait;
     /**
      * The name and signature of the console command.
      *
@@ -30,13 +26,6 @@ class ModuleMail extends Command
     protected $stub = 'module-mail';
 
     /**
-     * The directory stubs
-     *
-     * @var string
-     * */
-    protected $pathStubs = 'modules';
-
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -53,24 +42,29 @@ class ModuleMail extends Command
      */
     public function handle()
     {
-        $moduleDirectory    = config('module.modules_directory');
-        $module             = $this->argument('module');
-        $name               = $this->argument('name');
-        $toDirectory        = $moduleDirectory . $module . '/Mail';
+        $this->setModule($this->argument('module'));
+        $this->setFileName($this->argument('name'));
+        $this->setToDirectory('Mail');
+
+        $this->handleContent();
+
+        $this->fire();
 
         $this->checkBaseMail();
 
-        $content            = $this->getContents($this->stub);
+        $this->info('The Module ' . $this->module .' has been received a new notification: ' . $this->fileName . '. Be happy!');
+    }
 
-        $content            = $this->replaceName($name, $content);
-        $content            = $this->replaceModuleName($module, $content);
-        $content            = $this->replaceLowerName(strtolower($module), $content);
+    /**
+     * Handle de content file
+     */
+    private function handleContent()
+    {
+        $this->content      = $this->getContents($this->stub);
 
-        $this->doDirectory($toDirectory);
-
-        $this->writeFile($content, $toDirectory, $name, $this->stub);
-
-        $this->info('The Module ' . $module .' has been received a new notification: ' . $name . '. Be happy!');
+        $this->content      = $this->replaceName($this->fileName, $this->content);
+        $this->content      = $this->replaceModuleName($this->module, $this->content);
+        $this->content      = $this->replaceLowerName(strtolower($this->module), $this->content);
     }
 
     public function checkBaseMail()
@@ -82,7 +76,7 @@ class ModuleMail extends Command
 
         $this->doDirectory($toDirectory);
 
-        $content            = $this->getContents('core.mail_base-mail');
+        $content     = $this->getContents('core.mail_base-mail');
 
         $this->writeFileSimple($content, $toDirectory, 'BaseMail.php');
 

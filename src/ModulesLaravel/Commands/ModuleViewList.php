@@ -2,13 +2,8 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
-
-class ModuleViewList extends Command
+class ModuleViewList extends BaseModules
 {
-    use CommandTrait;
-
     /**
      * The name and signature of the console command.
      *
@@ -28,7 +23,7 @@ class ModuleViewList extends Command
      *
      * @var string
      * */
-    protected $stub = 'view-lista';
+    protected $stub = 'module-view';
 
     /**
      * Create a new command instance.
@@ -47,19 +42,11 @@ class ModuleViewList extends Command
      */
     public function handle()
     {
-        $moduleDirectory    = config('module.modules_directory');
-        $module             = $this->argument('module');
-        $toDirectory        = $moduleDirectory . $module . '/Views';
+        $this->setModule($this->argument('module'));
+        $this->setToDirectory('Resource');
 
-        $content            = $this->getContents($this->stub);
+        $this->copyStubTo('/views/list.blade.php');
 
-        $content            = $this->replaceModuleNameLower($module, $content);
-        $content            = $this->replaceCamelModuleName($module, $content);
-
-        $this->doDirectory($toDirectory);
-
-        $this->writeFile($content, $toDirectory, 'lista.blade');
-
-        $this->info('The Module ' . $module .' has been received a new list view. Be happy!');
+        $this->info('The Module ' . $this->module .' has been received a new list view. Be happy!');
     }
 }

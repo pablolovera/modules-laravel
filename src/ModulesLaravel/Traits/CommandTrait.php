@@ -6,7 +6,13 @@ use Carbon\Carbon;
 
 trait CommandTrait
 {
-
+    /**
+     * @param $target
+     */
+    public function copyStubTo($target)
+    {
+        copy(__DIR__ . $this->pathStubs . $this->stub . '.stub', $this->toDirectory . $target);
+    }
 
     /**
      * @return string
@@ -38,7 +44,7 @@ trait CommandTrait
      */
     public function getContents($stubName)
     {
-        return file_get_contents('/../../Commands/stubs/' . $this->pathStubs .'/' . $stubName .'.stub');
+        return file_get_contents(__DIR__ . '../../Commands/stubs/' . $this->pathStubs .'/' . $stubName . '.stub');
     }
 
     /**

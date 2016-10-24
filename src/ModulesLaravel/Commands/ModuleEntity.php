@@ -32,8 +32,6 @@ class ModuleEntity extends BaseModules
      */
     public function __construct()
     {
-        $this->toDirectory  = $this->toDirectory . '/Entities';
-
         parent::__construct();
     }
 
@@ -44,6 +42,10 @@ class ModuleEntity extends BaseModules
      */
     public function handle()
     {
+        $this->setModule($this->argument('module'));
+        $this->setFileName($this->argument('name'));
+        $this->setToDirectory('Entities');
+
         $this->handleContent();
 
         $this->fire();

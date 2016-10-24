@@ -70,22 +70,79 @@ class BaseModules extends Command
      */
     public function __construct()
     {
-        $this->moduleDirectory  = config('module.modules_directory');
-
-        $this->module           = $this->hasArgument('module') ? $this->argument('module') : '';
-        $this->fileName         = $this->hasArgument('name') ? $this->argument('name') : '';
-
-        $this->toDirectory      = $this->moduleDirectory . $this->module;
-
+        $this->setModuleDirectory(config('module.modules_directory'));
 
         parent::__construct();
     }
 
     public function fire()
     {
-        $this->doDirectory($this->toDirectory);
+        $this->doDirectory($this->getToDirectory());
 
-        $this->writeFile($this->content, $this->toDirectory, $this->fileName);
+        $this->writeFile($this->content, $this->getToDirectory(), $this->getFileName());
     }
 
+    /**
+     * @return string
+     */
+    public function getToDirectory()
+    {
+        return $this->toDirectory;
+    }
+
+    /**
+     * @param string $toDirectory
+     */
+    public function setToDirectory($toDirectory)
+    {
+        $this->toDirectory = $this->getModuleDirectory() . $this->getModule() . '/' . $toDirectory;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModule()
+    {
+        return $this->module;
+    }
+
+    /**
+     * @param string $module
+     */
+    public function setModule($module)
+    {
+        $this->module = $module;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModuleDirectory()
+    {
+        return $this->moduleDirectory;
+    }
+
+    /**
+     * @param string $moduleDirectory
+     */
+    public function setModuleDirectory($moduleDirectory)
+    {
+        $this->moduleDirectory = $moduleDirectory;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * @param string $fileName
+     */
+    public function setFileName($fileName)
+    {
+        $this->fileName = $fileName;
+    }
 }

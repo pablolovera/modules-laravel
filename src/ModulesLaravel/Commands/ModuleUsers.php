@@ -2,12 +2,8 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
-
-class ModuleUsers extends Command
+class ModuleUsers extends BaseModules
 {
-    use CommandTrait;
     /**
      * The name and signature of the console command.
      *
@@ -86,7 +82,6 @@ class ModuleUsers extends Command
         copy($this->pathStubs . 'routes-web.stub', $toDirectory . 'Routes/web.php');
         copy($this->pathStubs . 'UsersService.stub', $toDirectory . 'Services/UsersService.php');
         copy($this->pathStubs . 'UsersTransformer.stub', $toDirectory . 'Transformers/UsersTransformer.php');
-
 
         $this->call('module:make-views', ['module' => 'Users']);
 

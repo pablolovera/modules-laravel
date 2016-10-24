@@ -2,12 +2,8 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
-
-class ModuleListener extends Command
+class ModuleListener extends BaseModules
 {
-    use CommandTrait;
     /**
      * The name and signature of the console command.
      *
@@ -30,13 +26,6 @@ class ModuleListener extends Command
     protected $stub = 'module-listener';
 
     /**
-     * The directory stubs
-     *
-     * @var string
-     * */
-    protected $pathStubs = 'modules';
-
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -53,21 +42,26 @@ class ModuleListener extends Command
      */
     public function handle()
     {
-        $moduleDirectory    = config('module.modules_directory');
-        $module             = $this->argument('module');
-        $name               = $this->argument('name');
-        $toDirectory        = $moduleDirectory . $module . '/Listeners';
+        $this->setModule($this->argument('module'));
+        $this->setFileName($this->argument('name'));
+        $this->setToDirectory('Listeners');
 
-        $content            = $this->getContents($this->stub);
+        $this->handleContent();
 
-        $content            = $this->replaceName($name, $content);
-        $content            = $this->replaceModuleName($module, $content);
-        $content            = $this->replaceLowerName(strtolower($module), $content);
+        $this->fire();
 
-        $this->doDirectory($toDirectory);
+        $this->info('The Module ' . $this->module .' has been received a new listener: ' . $this->fileName . '. Be happy!');
+    }
 
-        $this->writeFile($content, $toDirectory, $name, $this->stub);
+    /**
+     * Handle de content file
+     */
+    private function handleContent()
+    {
+        $this->content      = $this->getContents($this->stub);
 
-        $this->info('The Module ' . $module .' has been received a new listener: ' . $name . '. Be happy!');
+        $this->content      = $this->replaceName($this->fileName, $this->content);
+        $this->content      = $this->replaceModuleName($this->module, $this->content);
+        $this->content      = $this->replaceLowerName(strtolower($this->module), $this->content);
     }
 }

@@ -2,12 +2,9 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
 
-class ModuleJob extends Command
+class ModuleJob extends BaseModules
 {
-    use CommandTrait;
     /**
      * The name and signature of the console command.
      *
@@ -30,13 +27,6 @@ class ModuleJob extends Command
     protected $stub = 'module-job';
 
     /**
-     * The directory stubs
-     *
-     * @var string
-     * */
-    protected $pathStubs = 'modules';
-
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -53,23 +43,25 @@ class ModuleJob extends Command
      */
     public function handle()
     {
-        $moduleDirectory    = config('module.modules_directory');
-        $module             = $this->argument('module');
-        $name               = $this->argument('name');
-        $toDirectory        = $moduleDirectory . $module . '/Jobs';
+        $this->setModule($this->argument('module'));
+        $this->setFileName($this->argument('name'));
+        $this->setToDirectory('Jobs');
+
+        $this->handleContent();
+
+        $this->fire();
 
         $this->checkBaseMail();
 
-        $content            = $this->getContents($this->stub);
+        $this->info('The Module ' . $this->module .' has been received a new job: ' . $this->fileName . '. Be happy!');
+    }
 
-        $content            = $this->replaceName($name, $content);
-        $content            = $this->replaceModuleName($module, $content);
+    private function handleContent()
+    {
+        $this->content      = $this->getContents($this->stub);
 
-        $this->doDirectory($toDirectory);
-
-        $this->writeFile($content, $toDirectory, $name, $this->stub);
-
-        $this->info('The Module ' . $module .' has been received a new job: ' . $name . '. Be happy!');
+        $this->content      = $this->replaceName($this->fileName, $this->content);
+        $this->content      = $this->replaceModuleName($this->module, $this->content);
     }
 
     public function checkBaseMail()
@@ -81,7 +73,7 @@ class ModuleJob extends Command
 
         $this->doDirectory($toDirectory);
 
-        $content            = $this->getContents('core.mail_base-job');
+        $content            = $this->getContents('core/core.mail_base-job');
 
         $this->writeFileSimple($content, $toDirectory, 'BaseJob.php');
 
