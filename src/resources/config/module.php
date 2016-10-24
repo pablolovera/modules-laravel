@@ -1,9 +1,10 @@
 <?php
 
 /**
- * Module Generator - Laravel 5
+ * Modules Generator - Laravel 5
  * Author: Pablo Lovera.
  */
+
 return [
 
     /**
@@ -24,6 +25,6 @@ return [
     /**
      *  Default directory of stubs
      */
-    'path_stubs' => '/../../Commands/stubs/'
+    'path_stubs' => '../../Commands/stubs/'
 
 ];
