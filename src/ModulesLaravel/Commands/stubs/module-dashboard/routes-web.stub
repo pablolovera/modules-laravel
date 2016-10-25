@@ -10,11 +10,6 @@
 */
 Route::group(['namespace' => 'Web'], function () {
 
-    Route::get(''           , ['middleware' => 'authorization:dashboard.index'      , 'as' => 'dashboard.index'     , 'DashboardController@index']);
-    Route::get('create'     , ['middleware' => 'authorization:dashboard.create'     , 'as' => 'dashboard.create'    , 'DashboardController@create@{id}']);
-    Route::post(''          , ['middleware' => 'authorization:dashboard.store'      , 'as' => 'dashboard.store'     , 'DashboardController@store']);
-    Route::get('{id}/show'  , ['middleware' => 'authorization:dashboard.show'       , 'as' => 'dashboard.show'      , 'DashboardController@show@{id}']);
-    Route::get('{id}/edit'  , ['middleware' => 'authorization:dashboard.edit'       , 'as' => 'dashboard.edit'      , 'DashboardController@edit@{id}']);
-    Route::put('{id}'       , ['middleware' => 'authorization:dashboard.update'     , 'as' => 'dashboard.update'    , 'DashboardController@update@{id}']);
-    Route::delete('{id}'    , ['middleware' => 'authorization:dashboard.destroy'    , 'as' => 'dashboard.destroy'   , 'DashboardController@destroy@{id}']);
+    Route::get('', 'DashboardController@index')->name('dashboard.index')->middleware('authorization:dashboard.index');
+
 });

@@ -40,7 +40,7 @@ class UsersController extends Controller
     {
         $data['all'] = $this->service->all();
 
-        return view('users:list', $data);
+        return view('users::list', $data);
     }
 
     /**
@@ -51,9 +51,9 @@ class UsersController extends Controller
     public function create()
     {
         $data['resource']   = [];
-        $data['route']      = route('userscontroller.store');
+        $data['route']      = route('users.store');
 
-        return view('users:form', $data);
+        return view('users::form', $data);
     }
 
     /**
@@ -68,7 +68,7 @@ class UsersController extends Controller
 
         alert()->success('Saved!!');
 
-        return redirect()->route('userscontroller.index');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -80,9 +80,9 @@ class UsersController extends Controller
     public function show($id)
     {
         $data['resource']   = $this->service->show($id);
-        $data['route']      = route('userscontroller.edit', $id);
+        $data['route']      = route('users.edit', $id);
 
-        return view('users:show', $data);
+        return view('users::show', $data);
     }
 
     /**
@@ -94,9 +94,9 @@ class UsersController extends Controller
     public function edit($id)
     {
         $data['resource']   = $this->service->show($id);
-        $data['route']      = route('userscontroller.update', $id);
+        $data['route']      = route('users.update', $id);
 
-        return view('users:form', $data);
+        return view('users::form', $data);
     }
 
     /**
@@ -112,7 +112,7 @@ class UsersController extends Controller
 
         alert()->success('Updated!!');
 
-        return redirect()->route('userscontroller.index');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -127,6 +127,6 @@ class UsersController extends Controller
 
         $this->service->destroy($id);
 
-        return redirect()->route('userscontroller.index');
+        return redirect()->route('users.index');
     }
 }

@@ -76,6 +76,7 @@ class ModuleUsers extends BaseModules
         copy($this->pathStubs . 'APIUsersController.stub', $toDirectory . 'Http/Controllers/API/UsersController.php');
         copy($this->pathStubs . 'WebUsersController.stub', $toDirectory . 'Http/Controllers/Web/UsersController.php');
         copy($this->pathStubs . 'UsersRequest.stub', $toDirectory . 'Http/Requests/UsersRequest.php');
+        copy($this->pathStubs . 'RouteServiceProvider.stub', $toDirectory . 'Providers/RouteServiceProvider.php');
         copy($this->pathStubs . 'UsersServiceProvider.stub', $toDirectory . 'Providers/UsersServiceProvider.php');
         copy($this->pathStubs . 'UsersRepository.stub', $toDirectory . 'Repositories/UsersRepository.php');
         copy($this->pathStubs . 'routes-api.stub', $toDirectory . 'Routes/api.php');
@@ -84,6 +85,10 @@ class ModuleUsers extends BaseModules
         copy($this->pathStubs . 'UsersTransformer.stub', $toDirectory . 'Transformers/UsersTransformer.php');
 
         $this->call('module:make-views', ['module' => 'Users']);
+
+        copy($this->pathStubs . 'view-form.blade.stub', $toDirectory . 'Resources/views/form.blade.php');
+        copy($this->pathStubs . 'view-list.blade.stub', $toDirectory . 'Resources/views/list.blade.php');
+        copy($this->pathStubs . 'view-show.blade.stub', $toDirectory . 'Resources/views/show.blade.php');
 
         $this->info('The Module User has been created. Be happy!');
     }

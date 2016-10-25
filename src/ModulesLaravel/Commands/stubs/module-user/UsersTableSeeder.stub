@@ -2,6 +2,7 @@
 namespace App\Modules\Users\Database\seeds;
 
 use App\Modules\Users\Entities\UsersEntity;
+use Artesaos\Defender\Facades\Defender;
 use DB;
 use Illuminate\Database\Seeder;
 
@@ -19,5 +20,32 @@ class UsersTableSeeder extends Seeder
             'email'     => 'superuser@super.user',
             'password'  => bcrypt('poweruser')
         ]);
+
+
+        /**
+         * Permissions of users
+         */
+
+        if ( ! Defender::permissionExists('users.index'))
+            Defender::createPermission('users.index', 'Users: Display a listing of the resource');
+
+        if ( ! Defender::permissionExists('users.create'))
+            Defender::createPermission('users.create', 'Users: Show the form for creating a new resource');
+
+        if ( ! Defender::permissionExists('users.show'))
+            Defender::createPermission('users.show', 'Users: Display the specified resource');
+
+        if ( ! Defender::permissionExists('users.edit'))
+            Defender::createPermission('users.edit', 'Users: Show the form for editing the specified resource');
+
+        if ( ! Defender::permissionExists('users.store'))
+            Defender::createPermission('users.store', 'Users: Store a newly created resource in storage');
+
+        if ( ! Defender::permissionExists('users.update'))
+            Defender::createPermission('users.update', 'Users: Update the specified resource in storage');
+
+        if ( ! Defender::permissionExists('users.destroy'))
+            Defender::createPermission('users.destroy', 'Users: Remove the specified resource from storage');
+
     }
 }

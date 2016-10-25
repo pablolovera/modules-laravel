@@ -78,6 +78,7 @@ class ModuleDashboard extends Command
         copy($this->pathStubs . 'DashboardEntity.stub', $toDirectory . 'Entities/DashboardEntity.php');
         copy($this->pathStubs . 'DashboardController.stub', $toDirectory . 'Http/Controllers/Web/DashboardController.php');
         copy($this->pathStubs . 'DashboardRequest.stub', $toDirectory . 'Http/Requests/DashboardRequest.php');
+        copy($this->pathStubs . 'RouteServiceProvider.stub', $toDirectory . 'Providers/RouteServiceProvider.php');
         copy($this->pathStubs . 'DashboardServiceProvider.stub', $toDirectory . 'Providers/DashboardServiceProvider.php');
         copy($this->pathStubs . 'DashboardRepository.stub', $toDirectory . 'Repositories/DashboardRepository.php');
         copy($this->pathStubs . 'routes-api.stub', $toDirectory . 'Routes/api.php');
@@ -85,8 +86,9 @@ class ModuleDashboard extends Command
         copy($this->pathStubs . 'DashboardService.stub', $toDirectory . 'Services/DashboardService.php');
         copy($this->pathStubs . 'DashboardTransformer.stub', $toDirectory . 'Transformers/DashboardTransformer.php');
 
-
         $this->call('module:make-views', ['module' => 'Dashboard']);
+
+        copy($this->pathStubs . 'dashboard.blade.stub', $toDirectory . 'Resources/views/dashboard.blade.php');
 
         $this->info('The Module User has been created. Be happy!');
     }

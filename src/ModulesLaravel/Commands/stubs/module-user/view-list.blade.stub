@@ -1,0 +1,76 @@
+@extends('layouts.app')
+
+@section('content')
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="page-header">
+                    <h2 class="h2">Users</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Listing...</div>
+                    <div class="panel-body">
+                        <table class="table table-borderless m-b-none">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>E-mail</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            @foreach($all as $item)
+
+                                <tr>
+                                    <td style="vertical-align: middle;">
+                                        {{ $item->id }}
+                                    </td>
+
+                                    <td style="vertical-align: middle;">
+                                        {{ $item->name }}
+                                    </td>
+
+                                    <td style="vertical-align: middle;">
+                                        {{ $item->email }}
+                                    </td>
+
+                                    <td style="vertical-align: middle;">
+                                        <a class="action-link" href="{{ route('users.show', $item->id) }}">
+                                        Show
+                                        </a>
+                                    </td>
+
+                                    <td style="vertical-align: middle;">
+                                        <a class="action-link" href="{{ route('users.edit', $item->id) }}">
+                                        Edit
+                                        </a>
+                                    </td>
+
+                                    <td style="vertical-align: middle;">
+                                        <form action="{{ route('users.destroy', $item->id) }}" method="POST">
+                                            {{ csrf_field() }} {{ method_field("delete") }}
+                                            <button type="submit" class="btn btn-link action-link"><span class="text-danger">Delete</span></button>
+                                        </form>
+                                    </td>
+                                </tr>
+
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection

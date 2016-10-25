@@ -1,0 +1,87 @@
+@extends('layouts.app')
+
+@section('content')
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="page-header">
+                    <h2 class="h2">Users</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Data...</div>
+                    <div class="panel-body">
+
+                        <form class="form-horizontal" role="form" method="POST" action="{{ $route }}">
+                            @include('vendor.partials.form-safe')
+
+                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-4 control-label">Name</label>
+
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ $resource->name or old('name') }}" required autofocus>
+
+                                    @include('vendor.partials.helper-error', ['field' => 'name'])
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ $resource->email or old('email') }}" required>
+                                    @include('vendor.partials.helper-error', ['field' => 'email'])
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                <label for="password" class="col-md-4 control-label">Password</label>
+
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control" name="password" required>
+                                    @include('vendor.partials.helper-error', ['field' => 'password'])
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                                <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+
+                                <div class="col-md-6">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                    @include('vendor.partials.helper-error', ['field' => 'password_confirmation'])
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @if(Route::is('*.edit'))
+                                    <div class="col-md-6 col-md-offset-4 pull-left">
+                                        <a href="{{ url('/logout') }}"
+                                           onclick="event.preventDefault();
+                                                 document.getElementById('delete-form').submit();">
+                                            Delete
+                                        </a>
+                                        <form id="delete-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </div>
+                                @endif
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection

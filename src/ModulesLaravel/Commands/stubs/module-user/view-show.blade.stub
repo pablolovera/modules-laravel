@@ -1,0 +1,39 @@
+@extends('layouts.app')
+
+@section('content')
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="page-header">
+                    <h2 class="h2">Users</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Showing...</div>
+                    <div class="panel-body">
+
+                        <dl class="dl-horizontal">
+
+                            <dt>Id:</dt>
+                            <dd>{{ $resource->id }}</dd>
+
+                            <dt>Name:</dt>
+                            <dd>{{ $resource->name }}</dd>
+
+                            <dt>E-mail:</dt>
+                            <dd>{{ $resource->email }}</dd>
+
+                        </dl>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection

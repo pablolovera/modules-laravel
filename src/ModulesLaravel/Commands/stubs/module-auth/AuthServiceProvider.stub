@@ -2,78 +2,29 @@
 
 namespace App\Modules\Auth\Providers;
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * This namespace is applied to your controller routes.
+     * The policy mappings for the application.
      *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
+     * @var array
      */
-    protected $namespace = 'App\Modules\Auth\Http\Controllers';
+    protected $policies = [
+        'App\Core\Model' => 'App\Core\Policies\ModelPolicy',
+    ];
 
     /**
-     * Register the service provider.
+     * Register any authentication / authorization services.
      *
      * @return void
      */
-    public function register()
+    public function boot()
     {
-        $this->loadViewsFrom(app_path('Modules/Auth/Resources/views'), 'auth');
+        $this->registerPolicies();
 
-        $this->map();
-    }
-
-    /**
-     * Define the routes for the application.
-     *
-     * @param  \Illuminate\Routing\Router  $router
-     * @return void
-     */
-    public function map()
-    {
-        $this->mapWebRoutes();
-
-        $this->mapApiRoutes();
-    }
-
-    /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
-    protected function mapWebRoutes()
-    {
-        Route::group([
-            'prefix'        => 'auth',
-            'middleware'    => ['web'],
-            'namespace'     => $this->namespace,
-        ], function ($router) {
-            require app_path('Modules/Auth/Routes/web.php');
-        });
-    }
-
-    /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
-    protected function mapApiRoutes()
-    {
-        Route::group([
-            'middleware'    => 'api',
-            'namespace'     => $this->namespace,
-            'prefix'        => 'api/auth',
-        ], function ($router) {
-            require app_path('Modules/Auth/Routes/api.php');
-        });
+        //
     }
 }

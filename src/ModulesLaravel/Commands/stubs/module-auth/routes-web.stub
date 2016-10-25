@@ -11,17 +11,17 @@
 
 Route::group(['namespace' => 'Web'], function () {
 
-    Route::post('logout'                , 'LoginController@logout');
+    Route::post('logout'                , 'LoginController@logout')->name('auth.logout');
 
-    Route::get('login'                  , 'LoginController@showForm');
-    Route::post('login'                 , 'LoginController@login');
+    Route::get('login'                  , 'LoginController@showForm')->name('auth.login');
+    Route::post('login'                 , 'LoginController@login')->name('auth.login');
 
-    Route::get('password/reset'         , 'ForgotPasswordController@showForm');
-    Route::post('password/email'        , 'ForgotPasswordController@sendResetLinkEmail');
-    Route::get('password/reset/{token}' , 'ResetPasswordController@showForm');
-    Route::post('password/reset'        , 'ResetPasswordController@reset');
+    Route::get('password/reset'         , 'ForgotPasswordController@showForm')->name('auth.password.reset.form');
+    Route::post('password/email'        , 'ForgotPasswordController@sendResetLinkEmail')->name('auth.password.reset.send');
+    Route::get('password/reset/{token}' , 'ResetPasswordController@showForm')->name('auth.password.reset.form');
+    Route::post('password/reset'        , 'ResetPasswordController@reset')->name('auth.password.reset');
 
-    Route::get('register'               , 'RegisterController@showForm');
-    Route::post('register'              , 'RegisterController@register');
+    Route::get('register'               , 'RegisterController@showForm')->name('auth.register.form');
+    Route::post('register'              , 'RegisterController@register')->name('auth.register');
 
 });

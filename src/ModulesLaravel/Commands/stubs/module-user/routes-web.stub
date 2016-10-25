@@ -10,11 +10,11 @@
 */
 Route::group(['namespace' => 'Web'], function () {
 
-    Route::get(''           , ['middleware' => 'authorization:users.index'      , 'as' => 'users.index'     , 'UsersController@index']);
-    Route::get('create'     , ['middleware' => 'authorization:users.create'     , 'as' => 'users.create'    , 'UsersController@create@{id}']);
-    Route::post(''          , ['middleware' => 'authorization:users.store'      , 'as' => 'users.store'     , 'UsersController@store']);
-    Route::get('{id}/show'  , ['middleware' => 'authorization:users.show'       , 'as' => 'users.show'      , 'UsersController@show@{id}']);
-    Route::get('{id}/edit'  , ['middleware' => 'authorization:users.edit'       , 'as' => 'users.edit'      , 'UsersController@edit@{id}']);
-    Route::put('{id}'       , ['middleware' => 'authorization:users.update'     , 'as' => 'users.update'    , 'UsersController@update@{id}']);
-    Route::delete('{id}'    , ['middleware' => 'authorization:users.destroy'    , 'as' => 'users.destroy'   , 'UsersController@destroy@{id}']);
+    Route::get(''           , 'UsersController@index')->name('users.index')->middleware('authorization:users.index');
+    Route::get('create'     , 'UsersController@create@{id}')->name('users.create')->middleware('authorization:users.create');
+    Route::post(''          , 'UsersController@store')->name('users.store')->middleware('authorization:users.store');
+    Route::get('{id}/show'  , 'UsersController@show@{id}')->name('users.show')->middleware('authorization:users.show');
+    Route::get('{id}/edit'  , 'UsersController@edit@{id}')->name('users.edit')->middleware('authorization:users.edit');
+    Route::put('{id}'       , 'UsersController@update@{id}')->name('users.update')->middleware('authorization:users.update');
+    Route::delete('{id}'    , 'UsersController@destroy@{id}')->name('users.destroy')->middleware('authorization:users.destroy');
 });

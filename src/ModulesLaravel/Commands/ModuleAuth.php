@@ -67,7 +67,9 @@ class ModuleAuth extends Command
         copy($this->pathStubs . 'LoginController.stub', $toDirectory . 'Http/Controllers/Web/LoginController.php');
         copy($this->pathStubs . 'RegisterController.stub', $toDirectory . 'Http/Controllers/Web/RegisterController.php');
         copy($this->pathStubs . 'ResetPasswordController.stub', $toDirectory . 'Http/Controllers/Web/ResetPasswordController.php');
-        copy($this->pathStubs . 'AuthServiceProvider.stub', $toDirectory . 'Providers/AuthServiceProvider.php');
+        copy($this->pathStubs . 'AuthenticationServiceProvider.stub', $toDirectory . 'Providers/RouteServiceProvider.php');
+        copy($this->pathStubs . 'AuthServiceProvider.stub', $toDirectory . 'Providers/AuthenticationServiceProvider.php');
+        copy($this->pathStubs . 'RouteServiceProvider.stub', $toDirectory . 'Providers/RouteServiceProvider.php');
         copy($this->pathStubs . 'routes-api.stub', $toDirectory . 'Routes/api.php');
         copy($this->pathStubs . 'routes-web.stub', $toDirectory . 'Routes/web.php');
         copy($this->pathStubs . '503.blade.stub', $toDirectory . 'Resources/views/errors/503.blade.php');
@@ -75,7 +77,6 @@ class ModuleAuth extends Command
         copy($this->pathStubs . 'reset.blade.stub', $toDirectory . 'Resources/views/passwords/reset.blade.php');
         copy($this->pathStubs . 'login.blade.stub', $toDirectory . 'Resources/views/login.blade.php');
         copy($this->pathStubs . 'register.blade.stub', $toDirectory . 'Resources/views/register.blade.php');
-
 
         $this->info('The Module Auth has been created. Be happy!');
     }
