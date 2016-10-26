@@ -5,9 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="page-header">
-                    <h2 class="h2">Users</h2>
-                </div>
+                <legend>Users</legend>
             </div>
         </div>
 
@@ -58,18 +56,6 @@
                             </div>
 
                             <div class="form-group">
-                                @if(Route::is('*.edit'))
-                                    <div class="col-md-6 col-md-offset-4 pull-left">
-                                        <a href="{{ url('/logout') }}"
-                                           onclick="event.preventDefault();
-                                                 document.getElementById('delete-form').submit();">
-                                            Delete
-                                        </a>
-                                        <form id="delete-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </div>
-                                @endif
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
                                         Save

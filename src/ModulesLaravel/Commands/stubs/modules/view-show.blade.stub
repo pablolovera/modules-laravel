@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <legend>Users</legend>
+                <legend>*NAME*</legend>
             </div>
         </div>
 
@@ -22,9 +22,6 @@
 
                             <dt>Name:</dt>
                             <dd>{{ $resource->name }}</dd>
-
-                            <dt>E-mail:</dt>
-                            <dd>{{ $resource->email }}</dd>
 
                         </dl>
 

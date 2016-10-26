@@ -40,7 +40,7 @@ class *NAME* extends Controller
     {
         $data['all'] = $this->service->all();
 
-        return view('*NAMESPACE*:list', $data);
+        return view('*NAMESPACE*::list', $data);
     }
 
     /**
@@ -53,7 +53,7 @@ class *NAME* extends Controller
         $data['resource']   = [];
         $data['route']      = route('*LOWERNAME*.store');
 
-        return view('*NAMESPACE*:form', $data);
+        return view('*NAMESPACE*::form', $data);
     }
 
     /**
@@ -64,7 +64,7 @@ class *NAME* extends Controller
      */
     public function store(*REQUESTNAME* $request)
     {
-        $this->service->store($request);
+        $this->service->store($request->all());
 
         alert()->success('Saved!!');
 
@@ -82,7 +82,7 @@ class *NAME* extends Controller
         $data['resource']   = $this->service->show($id);
         $data['route']      = route('*LOWERNAME*.edit', $id);
 
-        return view('*NAMESPACE*:show', $data);
+        return view('*NAMESPACE*::show', $data);
     }
 
     /**
@@ -96,7 +96,7 @@ class *NAME* extends Controller
         $data['resource']   = $this->service->show($id);
         $data['route']      = route('*LOWERNAME*.update', $id);
 
-        return view('*NAMESPACE*:form', $data);
+        return view('*NAMESPACE*::form', $data);
     }
 
     /**
@@ -108,7 +108,7 @@ class *NAME* extends Controller
      */
     public function update(*REQUESTNAME* $request, $id)
     {
-        $this->service->update($request, $id);
+        $this->service->update($request->all(), $id);
 
         alert()->success('Updated!!');
 

@@ -64,7 +64,7 @@ class UsersController extends Controller
      */
     public function store(UsersRequest $request)
     {
-        $this->service->store($request);
+        $this->service->store($request->all());
 
         alert()->success('Saved!!');
 

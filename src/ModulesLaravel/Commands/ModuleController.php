@@ -98,6 +98,7 @@ class ModuleController extends BaseModules
         $requestName        = $this->getRequestName($this->fileName);
         $serviceName        = $this->getServiceName($this->fileName);
         $transformerName    = $this->getTransformerName($this->fileName);
+        $routeName          = $this->getRouteName($this->fileName);
 
         $this->content      = $this->replaceModuleName($this->module, $this->content);
         $this->content      = $this->replaceName($this->fileName, $this->content);
@@ -105,7 +106,7 @@ class ModuleController extends BaseModules
         $this->content      = $this->replaceServiceName($serviceName, $this->content);
         $this->content      = $this->replaceTransformerName($transformerName, $this->content);
         $this->content      = $this->replaceName($this->fileName, $this->content);
-        $this->content      = $this->replaceLowerName(strtolower($this->fileName), $this->content);
+        $this->content      = $this->replaceLowerName($routeName, $this->content);
         $this->content      = $this->replaceNamespace(strtolower($this->module), $this->content);
         $this->content      = $this->replaceModuleName($this->module, $this->content);
     }
@@ -135,5 +136,14 @@ class ModuleController extends BaseModules
     public function getTransformerName($name)
     {
         return str_replace('Controller', '', $name) . 'Transformer';
+    }
+
+    /**
+     * @param $name
+     * @return string
+     */
+    public function getRouteName($name)
+    {
+        return strtolower(str_replace('Controller', '', $name));
     }
 }

@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <legend>Users</legend>
+                <legend>*NAME*</legend>
             </div>
         </div>
 
@@ -19,7 +19,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>E-mail</th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -39,23 +38,19 @@
                                     </td>
 
                                     <td style="vertical-align: middle;">
-                                        {{ $item->email }}
-                                    </td>
-
-                                    <td style="vertical-align: middle;">
-                                        <a class="action-link" href="{{ route('users.show', $item->id) }}">
+                                        <a class="action-link" href="{{ route('*ROUTENAME*.show', $item->id) }}">
                                         Show
                                         </a>
                                     </td>
 
                                     <td style="vertical-align: middle;">
-                                        <a class="action-link" href="{{ route('users.edit', $item->id) }}">
+                                        <a class="action-link" href="{{ route('*ROUTENAME*.edit', $item->id) }}">
                                         Edit
                                         </a>
                                     </td>
 
                                     <td style="vertical-align: middle;">
-                                        <form action="{{ route('users.destroy', $item->id) }}" method="POST">
+                                        <form action="{{ route('*ROUTENAME*.destroy', $item->id) }}" method="POST">
                                             {{ csrf_field() }} {{ method_field("delete") }}
                                             <button type="submit" class="btn btn-link action-link"><span class="text-danger">Delete</span></button>
                                         </form>
