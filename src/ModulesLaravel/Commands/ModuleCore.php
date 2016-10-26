@@ -2,9 +2,6 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-use Illuminate\Console\Command;
-use PabloLovera\ModulesLaravel\Traits\CommandTrait;
-
 class ModuleCore extends BaseModules
 {
     /**
@@ -37,7 +34,7 @@ class ModuleCore extends BaseModules
         'core.exceptions_handler',
         'core.exceptions_repository-exception',
         'core.http.controllers_controller',
-        'core.http.middleware_authenticate',
+        'core.http.middleware_authentication',
         'core.http.middleware_cors',
         'core.http.middleware_encrypt-cookies',
         'core.http.middleware_redirect-if-authenticated',
@@ -53,7 +50,6 @@ class ModuleCore extends BaseModules
         'core.providers_route-service-provider',
         'core.repositories_base-repository',
         'core.services_base-service',
-        'core.services_o-auth-password-grant',
 
     ];
     /**

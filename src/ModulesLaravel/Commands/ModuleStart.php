@@ -39,6 +39,8 @@ class ModuleStart extends Command
      */
     public function handle()
     {
+        $this->doDirectory(config('module.modules_directory'));
+
         $this->call('module:make-core');
         $this->call('module:make-users');
         $this->call('module:make-auth');
