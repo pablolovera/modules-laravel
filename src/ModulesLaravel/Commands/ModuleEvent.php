@@ -23,7 +23,7 @@ class ModuleEvent extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-event';
+    protected $stub = 'event';
 
     /**
      * Create a new command instance.

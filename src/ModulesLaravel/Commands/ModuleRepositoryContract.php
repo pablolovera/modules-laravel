@@ -23,7 +23,7 @@ class ModuleRepositoryContract extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-repository-contract';
+    protected $stub = 'repository-contract';
 
     /**
      * Create a new command instance.

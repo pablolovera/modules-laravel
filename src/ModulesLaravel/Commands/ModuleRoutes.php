@@ -23,14 +23,14 @@ class ModuleRoutes extends BaseModules
      *
      * @var string
      * */
-    protected $stubApi = 'module-routes-api';
+    protected $stubApi = 'routes-api';
 
     /**
      * The stub name for web routes
      *
      * @var string
      * */
-    protected $stubWeb = 'module-routes-web';
+    protected $stubWeb = 'routes-web';
 
     /**
      * Create a new command instance.

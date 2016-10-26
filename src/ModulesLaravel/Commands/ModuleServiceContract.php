@@ -23,7 +23,7 @@ class ModuleServiceContract extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-service-contract';
+    protected $stub = 'service-contract';
 
     /**
      * Create a new command instance.

@@ -23,7 +23,7 @@ class ModuleEntityContract extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-entity-contract';
+    protected $stub = 'entity-contract';
 
     /**
      * The directory stubs

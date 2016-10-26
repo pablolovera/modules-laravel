@@ -24,7 +24,7 @@ class ModuleJob extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-job';
+    protected $stub = 'job';
 
     /**
      * Create a new command instance.

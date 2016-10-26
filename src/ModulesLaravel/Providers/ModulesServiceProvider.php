@@ -49,6 +49,9 @@ class ModulesServiceProvider extends ServiceProvider
         'ModuleServiceProvider',
         'ModuleTransformer',
         'ModuleViews',
+        'ModuleViewForm',
+        'ModuleViewList',
+        'ModuleViewShow',
         'ModuleUsers',
         'ModuleDashboard',
         'ModuleAuth',
@@ -62,6 +65,7 @@ class ModulesServiceProvider extends ServiceProvider
     {
         $this->publishes([__DIR__.'/../../resources/config/module.php' => config_path('module.php')], 'config');
         $this->publishes([__DIR__.'/../../resources/config/fractal.php' => config_path('fractal.php')], 'config');
+        $this->publishes([__DIR__.'/../../resources/config/defender.php' => config_path('defender.php')], 'config');
 
     }
 

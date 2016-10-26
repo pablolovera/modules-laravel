@@ -23,7 +23,7 @@ class ModuleEntity extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-entity';
+    protected $stub = 'entity';
 
     /**
      * Create a new command instance.

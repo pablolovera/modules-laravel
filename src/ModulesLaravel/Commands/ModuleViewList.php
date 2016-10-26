@@ -23,7 +23,7 @@ class ModuleViewList extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-view';
+    protected $stub = 'view-list.blade';
 
     /**
      * Create a new command instance.

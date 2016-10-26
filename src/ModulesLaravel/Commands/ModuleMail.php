@@ -23,7 +23,7 @@ class ModuleMail extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-mail';
+    protected $stub = 'mail';
 
     /**
      * Create a new command instance.

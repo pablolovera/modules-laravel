@@ -23,7 +23,7 @@ class ModuleMigration extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-migration';
+    protected $stub = 'migration';
 
     /**
      * Create a new command instance.

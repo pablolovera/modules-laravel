@@ -23,7 +23,7 @@ class ModuleTransformer extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-transformer';
+    protected $stub = 'transformer';
 
     /**
      * Create a new command instance.

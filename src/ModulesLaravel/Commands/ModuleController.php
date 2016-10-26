@@ -23,14 +23,14 @@ class ModuleController extends BaseModules
      *
      * @var string
      * */
-    protected $stubApi = 'module-controller-api';
+    protected $stubApi = 'controller-api';
 
     /**
      * The stub name for web controller
      *
      * @var string
      * */
-    protected $stubWeb = 'module-controller-web';
+    protected $stubWeb = 'controller-web';
 
     /**
      * Create a new command instance.

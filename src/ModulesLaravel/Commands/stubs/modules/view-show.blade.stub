@@ -20,9 +20,6 @@
                             <dt>Id:</dt>
                             <dd>{{ $resource->id }}</dd>
 
-                            <dt>Name:</dt>
-                            <dd>{{ $resource->name }}</dd>
-
                         </dl>
 
                     </div>

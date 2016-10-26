@@ -10,18 +10,14 @@ class ModuleViews extends BaseModules
      * @var string
      */
     protected $signature = 'module:make-views {module}';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a views directory';
-    /**
-     * The stub name
-     *
-     * @var string
-     * */
-    protected $stub = 'module-view';
+
 
     /**
      * Create a new command instance.
@@ -51,10 +47,17 @@ class ModuleViews extends BaseModules
         $this->doDirectory($this->toDirectory . '/views/vendor');
         $this->doDirectory($this->toDirectory . '/views/mails');
 
-        $this->copyStubTo('/views/list.blade.php');
-        $this->copyStubTo('/views/show.blade.php');
-        $this->copyStubTo('/views/form.blade.php');
+        $this->exportAppView();
+
+        $this->call('module:make-view-form', ['module' => $this->module]);
+        $this->call('module:make-view-list', ['module' => $this->module]);
+        $this->call('module:make-view-show', ['module' => $this->module]);
 
         $this->info('The Module ' . $this->module .' has been received a new views. Be happy!');
+    }
+
+    private function exportAppView()
+    {
+        copy(__DIR__ . $this->pathStubs . 'view-app.stub', base_path('resources/views/layouts/app.blade.php'));
     }
 }

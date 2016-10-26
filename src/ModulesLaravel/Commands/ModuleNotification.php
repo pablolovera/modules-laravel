@@ -23,7 +23,7 @@ class ModuleNotification extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-notification';
+    protected $stub = 'notification';
 
     /**
      * Create a new command instance.

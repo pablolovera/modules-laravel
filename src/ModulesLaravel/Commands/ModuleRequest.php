@@ -23,7 +23,7 @@ class ModuleRequest extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-request';
+    protected $stub = 'request';
 
     /**
      * Create a new command instance.

@@ -23,7 +23,7 @@ class ModuleRepository extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-repository';
+    protected $stub = 'repository';
 
     /**
      * Create a new command instance.

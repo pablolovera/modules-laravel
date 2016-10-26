@@ -23,7 +23,7 @@ class ModuleListener extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-listener';
+    protected $stub = 'listener';
 
     /**
      * Create a new command instance.

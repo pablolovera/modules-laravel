@@ -23,7 +23,7 @@ class ModuleSeeder extends BaseModules
      *
      * @var string
      * */
-    protected $stub = 'module-seeder';
+    protected $stub = 'seeder';
 
     /**
      * Create a new command instance.

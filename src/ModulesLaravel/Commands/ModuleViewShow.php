@@ -2,28 +2,28 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-class ModuleViewForm extends BaseModules
+class ModuleViewShow extends BaseModules
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'module:make-view-form {module}';
+    protected $signature = 'module:make-view-show {module}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new Form View';
+    protected $description = 'Create a new show view';
 
     /**
      * The stub name
      *
      * @var string
      * */
-    protected $stub = 'view-form.blade';
+    protected $stub = 'view-show.blade';
 
     /**
      * Create a new command instance.
@@ -45,8 +45,8 @@ class ModuleViewForm extends BaseModules
         $this->setModule($this->argument('module'));
         $this->setToDirectory('Resource');
 
-        $this->copyStubTo('/views/form.blade.php');
+        $this->copyStubTo('/views/show.blade.php');
 
-        $this->info('The Module ' . $this->module .' has been received a new inputs view. Be happy!');
+        $this->info('The Module ' . $this->module .' has been received a new show view. Be happy!');
     }
 }
