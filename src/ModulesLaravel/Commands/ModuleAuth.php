@@ -48,11 +48,9 @@ class ModuleAuth extends Command
     {
         $toDirectory        = config('module.modules_directory') . 'Auth/';
 
-        $this->pathStubs = config('module.path_stubs') . $this->pathStubs . '/';
+        $this->pathStubs = __DIR__ . '/stubs/' . $this->pathStubs . '/';
 
         $this->doDirectory($toDirectory);
-
-        $this->call('module:make-views', ['module' => 'Auth']);
 
         $this->doDirectory($toDirectory . '/Http');
         $this->doDirectory($toDirectory . '/Http/Controllers');
@@ -60,6 +58,14 @@ class ModuleAuth extends Command
         $this->doDirectory($toDirectory . '/Http/Requests');
         $this->doDirectory($toDirectory . '/Providers');
         $this->doDirectory($toDirectory . '/Routes');
+        $this->doDirectory($toDirectory . '/Resources');
+        $this->doDirectory($toDirectory . '/Resources/assets');
+        $this->doDirectory($toDirectory . '/Resources/assets/js');
+        $this->doDirectory($toDirectory . '/Resources/assets/sass');
+        $this->doDirectory($toDirectory . '/Resources/views');
+        $this->doDirectory($toDirectory . '/Resources/views/errors');
+        $this->doDirectory($toDirectory . '/Resources/views/vendor');
+        $this->doDirectory($toDirectory . '/Resources/views/mails');
         $this->doDirectory($toDirectory . '/Resources/views/passwords');
 
 

@@ -34,7 +34,7 @@ class ModuleCore extends BaseModules
         'core.exceptions_handler',
         'core.exceptions_repository-exception',
         'core.http.controllers_controller',
-        'core.http.middleware_authentication',
+        'core.http.middleware_authorization',
         'core.http.middleware_cors',
         'core.http.middleware_encrypt-cookies',
         'core.http.middleware_redirect-if-authenticated',

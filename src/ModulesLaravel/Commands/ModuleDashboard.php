@@ -48,7 +48,7 @@ class ModuleDashboard extends Command
     {
         $toDirectory        = config('module.modules_directory') . 'Dashboard/';
 
-        $this->pathStubs = config('module.path_stubs') . $this->pathStubs . '/';
+        $this->pathStubs = __DIR__ . '/stubs/' . $this->pathStubs . '/';
 
         $this->doDirectory($toDirectory);
         $this->doDirectory($toDirectory . '/Contracts');
@@ -69,6 +69,14 @@ class ModuleDashboard extends Command
         $this->doDirectory($toDirectory . '/Routes');
         $this->doDirectory($toDirectory . '/Services');
         $this->doDirectory($toDirectory . '/Transformers');
+        $this->doDirectory($toDirectory . '/Resources');
+        $this->doDirectory($toDirectory . '/Resources/assets');
+        $this->doDirectory($toDirectory . '/Resources/assets/js');
+        $this->doDirectory($toDirectory . '/Resources/assets/sass');
+        $this->doDirectory($toDirectory . '/Resources/views');
+        $this->doDirectory($toDirectory . '/Resources/views/errors');
+        $this->doDirectory($toDirectory . '/Resources/views/vendor');
+        $this->doDirectory($toDirectory . '/Resources/views/mails');
 
         copy($this->pathStubs . 'DashboardEntityContract.stub', $toDirectory . 'Contracts/Entities/DashboardEntityContract.php');
         copy($this->pathStubs . 'DashboardRepositoryContract.stub', $toDirectory . 'Contracts/Repositories/DashboardRepositoryContract.php');
@@ -85,9 +93,6 @@ class ModuleDashboard extends Command
         copy($this->pathStubs . 'routes-web.stub', $toDirectory . 'Routes/web.php');
         copy($this->pathStubs . 'DashboardService.stub', $toDirectory . 'Services/DashboardService.php');
         copy($this->pathStubs . 'DashboardTransformer.stub', $toDirectory . 'Transformers/DashboardTransformer.php');
-
-        $this->call('module:make-views', ['module' => 'Dashboard']);
-
         copy($this->pathStubs . 'dashboard.blade.stub', $toDirectory . 'Resources/views/dashboard.blade.php');
 
         $this->info('The Module User has been created. Be happy!');

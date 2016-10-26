@@ -11,7 +11,7 @@ trait CommandTrait
      */
     public function copyStubTo($target)
     {
-        copy(__DIR__ . $this->pathStubs . $this->stub . '.stub', $this->toDirectory . $target);
+        copy(__DIR__ . '../../Commands/stubs/' . $this->pathStubs . '/' . $this->stub . '.stub', $this->toDirectory . $target);
     }
 
     /**

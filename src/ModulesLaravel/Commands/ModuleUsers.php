@@ -42,9 +42,9 @@ class ModuleUsers extends BaseModules
      */
     public function handle()
     {
-        $toDirectory        = config('module.modules_directory') . '/Users/';
+        $toDirectory        = config('module.modules_directory') . 'Users/';
 
-        $this->pathStubs = config('module.path_stubs') . $this->pathStubs . '/';
+        $this->pathStubs = __DIR__ . '/stubs/' . $this->pathStubs . '/';
 
         $this->doDirectory($toDirectory);
         $this->doDirectory($toDirectory . '/Contracts');

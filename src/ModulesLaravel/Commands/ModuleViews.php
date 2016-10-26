@@ -18,6 +18,13 @@ class ModuleViews extends BaseModules
      */
     protected $description = 'Create a views directory';
 
+    /**
+     * The directory stubs
+     *
+     * @var string
+     * */
+    protected $pathStubs = 'modules';
+
 
     /**
      * Create a new command instance.
@@ -46,6 +53,7 @@ class ModuleViews extends BaseModules
         $this->doDirectory($this->toDirectory . '/views/errors');
         $this->doDirectory($this->toDirectory . '/views/vendor');
         $this->doDirectory($this->toDirectory . '/views/mails');
+        $this->doDirectory(resource_path('views/layouts'));
 
         $this->exportAppView();
 
@@ -58,6 +66,6 @@ class ModuleViews extends BaseModules
 
     private function exportAppView()
     {
-        copy(__DIR__ . $this->pathStubs . 'view-app.stub', base_path('resources/views/layouts/app.blade.php'));
+        copy(__DIR__ . '/stubs/' . $this->pathStubs . '/' . 'view-app.stub', resource_path('views/layouts/app.blade.php'));
     }
 }

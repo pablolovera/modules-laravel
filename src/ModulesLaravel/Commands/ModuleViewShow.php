@@ -26,6 +26,13 @@ class ModuleViewShow extends BaseModules
     protected $stub = 'view-show.blade';
 
     /**
+     * The directory stubs
+     *
+     * @var string
+     * */
+    protected $pathStubs = 'modules';
+
+    /**
      * Create a new command instance.
      *
      * @return void
