@@ -5,10 +5,8 @@ namespace PabloLovera\ModulesLaravel\Commands;
 use Illuminate\Console\Command;
 use PabloLovera\ModulesLaravel\Traits\CommandTrait;
 
-class ModuleCore extends Command
+class ModuleCore extends BaseModules
 {
-    use CommandTrait;
-
     /**
      * The name and signature of the console command.
      *
@@ -39,7 +37,6 @@ class ModuleCore extends Command
         'core.exceptions_handler',
         'core.exceptions_repository-exception',
         'core.http.controllers_controller',
-        'core.http.controllers_oauth-controller',
         'core.http.middleware_authenticate',
         'core.http.middleware_cors',
         'core.http.middleware_encrypt-cookies',
@@ -76,6 +73,8 @@ class ModuleCore extends Command
      */
     public function handle()
     {
+        $this->pathStubs = 'core';
+
         if ( is_dir(config('module.core_directory')) )
             return $this->warn('The Core module already exists!');
 
