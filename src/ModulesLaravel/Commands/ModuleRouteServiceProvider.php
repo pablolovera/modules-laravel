@@ -2,7 +2,7 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-class ModuleServiceProvider extends BaseModules
+class ModuleRouteServiceProvider extends BaseModules
 {
     /**
      * The name and signature of the console command.
