@@ -73,8 +73,8 @@ class ModuleAuth extends Command
         copy($this->pathStubs . 'LoginController.stub', $toDirectory . 'Http/Controllers/Web/LoginController.php');
         copy($this->pathStubs . 'RegisterController.stub', $toDirectory . 'Http/Controllers/Web/RegisterController.php');
         copy($this->pathStubs . 'ResetPasswordController.stub', $toDirectory . 'Http/Controllers/Web/ResetPasswordController.php');
-        copy($this->pathStubs . 'AuthenticationServiceProvider.stub', $toDirectory . 'Providers/RouteServiceProvider.php');
-        copy($this->pathStubs . 'AuthServiceProvider.stub', $toDirectory . 'Providers/AuthenticationServiceProvider.php');
+        copy($this->pathStubs . 'AuthenticationServiceProvider.stub', $toDirectory . 'Providers/AuthenticationServiceProvider.php');
+        copy($this->pathStubs . 'AuthServiceProvider.stub', $toDirectory . 'Providers/AuthServiceProvider.php');
         copy($this->pathStubs . 'RouteServiceProvider.stub', $toDirectory . 'Providers/RouteServiceProvider.php');
         copy($this->pathStubs . 'routes-api.stub', $toDirectory . 'Routes/api.php');
         copy($this->pathStubs . 'routes-web.stub', $toDirectory . 'Routes/web.php');
