@@ -50,7 +50,7 @@ class ModuleViewList extends BaseModules
     public function handle()
     {
         $this->setModule($this->argument('module'));
-        $this->setToDirectory('Resource');
+        $this->setToDirectory('Resources');
 
         $this->copyStubTo('/views/list.blade.php');
 
