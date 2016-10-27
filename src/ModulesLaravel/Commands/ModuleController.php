@@ -83,7 +83,7 @@ class ModuleController extends BaseModules
     {
         $this->setToDirectory('Http/Controllers/Web');
 
-        $this->content  = $this->getContents($this->stubApi);
+        $this->content  = $this->getContents($this->stubWeb);
 
         $this->handleContent();
 
