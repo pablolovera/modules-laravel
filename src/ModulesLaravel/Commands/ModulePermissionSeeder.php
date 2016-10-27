@@ -2,28 +2,28 @@
 
 namespace PabloLovera\ModulesLaravel\Commands;
 
-class ModuleServiceProvider extends BaseModules
+class ModulePermissionSeeder extends BaseModules
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'module:make-service-provider {name} {module}';
+    protected $signature = 'module:make-permission-seeder {name} {context} {module}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new Service Provider extending of Core module';
+    protected $description = 'Create a new Permisison Seeder for a module';
 
     /**
      * The stub name
      *
      * @var string
      * */
-    protected $stub = 'module-service-provider';
+    protected $stub = 'permission-table-seeder';
 
     /**
      * Create a new command instance.
@@ -44,13 +44,14 @@ class ModuleServiceProvider extends BaseModules
     {
         $this->setModule($this->argument('module'));
         $this->setFileName($this->argument('name'));
-        $this->setToDirectory('Providers');
+        $this->setContext($this->argument('context'));
+        $this->setToDirectory('Database/seeds');
 
         $this->handleContent();
 
         $this->fire();
 
-        $this->info('The Module ' . $this->module .' has been received a new service provider: ' . $this->fileName . '. Be happy!');
+        $this->info('The Module ' . $this->module .' has been received a new permission seeder: ' . $this->fileName . '. Be happy!');
     }
 
     /**
@@ -62,5 +63,6 @@ class ModuleServiceProvider extends BaseModules
 
         $this->content  = $this->replaceName($this->fileName, $this->content);
         $this->content  = $this->replaceModuleName($this->module, $this->content);
+        $this->content  = $this->replaceContext($this->context, $this->content);
     }
 }

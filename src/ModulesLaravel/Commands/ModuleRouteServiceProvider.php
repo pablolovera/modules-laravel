@@ -50,7 +50,7 @@ class ModuleServiceProvider extends BaseModules
 
         $this->fire();
 
-        $this->info('The Module ' . $this->module .' has been received a new service provider: ' . $this->fileName . '. Be happy!');
+        $this->info('The Module ' . $this->module .' has been received a new route service provider: ' . $this->fileName . '. Be happy!');
     }
 
     /**
@@ -60,16 +60,8 @@ class ModuleServiceProvider extends BaseModules
     {
         $this->content  = $this->getContents($this->stub);
 
-        $lowerName      = $this->getLowerName($this->fileName);
-
-        $this->content  = $this->replaceName($this->fileName, $this->content);
         $this->content  = $this->replaceModuleName($this->module, $this->content);
-        $this->content  = $this->replaceLowerName($lowerName, $this->content);
+        $this->content  = $this->replaceLowerName(strtolower($this->module), $this->content);
         $this->content  = $this->replaceRoutePrefix($this->module, $this->content);
-    }
-
-    public function getLowerName($name)
-    {
-        return strtolower(str_replace('ServiceProvider', '', $name));
     }
 }

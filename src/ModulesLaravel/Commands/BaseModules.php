@@ -59,6 +59,13 @@ class BaseModules extends Command
     protected $toDirectory;
 
     /**
+     * The context name
+     *
+     * @var string
+     */
+    protected $context;
+
+    /**
      * The content file
      *
      * @var string
@@ -144,5 +151,21 @@ class BaseModules extends Command
     public function setFileName($fileName)
     {
         $this->fileName = $fileName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContext()
+    {
+        return $this->context;
+    }
+
+    /**
+     * @param string $context
+     */
+    public function setContext($context)
+    {
+        $this->context = $context;
     }
 }

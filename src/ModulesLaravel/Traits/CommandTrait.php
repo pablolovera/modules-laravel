@@ -248,6 +248,16 @@ trait CommandTrait
     }
 
     /**
+     * @param $module
+     * @param $content
+     * @return mixed
+     */
+    public function replaceContext($context, $content)
+    {
+        return str_replace('*CONTEXT*', strtolower($context), $content);
+    }
+
+    /**
      * @param $name
      * @param $content
      * @return mixed

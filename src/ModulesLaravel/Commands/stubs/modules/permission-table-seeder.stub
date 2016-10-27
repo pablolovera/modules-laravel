@@ -1,0 +1,43 @@
+<?php
+namespace App\Modules\*MODULENAME*\Database\seeds;
+
+use Artesaos\Defender\Facades\Defender;
+use DB;
+use Illuminate\Database\Seeder;
+
+class *NAME* extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        /**
+         * Permissions
+         */
+
+        if ( ! Defender::permissionExists('*CONTEXT*.index'))
+            Defender::createPermission('*CONTEXT*.index', '*MODULENAME*: Display a listing of the resource');
+
+        if ( ! Defender::permissionExists('*CONTEXT*.create'))
+            Defender::createPermission('*CONTEXT*.create', '*MODULENAME*: Show the form for creating a new resource');
+
+        if ( ! Defender::permissionExists('*CONTEXT*.show'))
+            Defender::createPermission('*CONTEXT*.show', '*MODULENAME*: Display the specified resource');
+
+        if ( ! Defender::permissionExists('*CONTEXT*.edit'))
+            Defender::createPermission('*CONTEXT*.edit', '*MODULENAME*: Show the form for editing the specified resource');
+
+        if ( ! Defender::permissionExists('*CONTEXT*.store'))
+            Defender::createPermission('*CONTEXT*.store', '*MODULENAME*: Store a newly created resource in storage');
+
+        if ( ! Defender::permissionExists('*CONTEXT*.update'))
+            Defender::createPermission('*CONTEXT*.update', '*MODULENAME*: Update the specified resource in storage');
+
+        if ( ! Defender::permissionExists('*CONTEXT*.destroy'))
+            Defender::createPermission('*CONTEXT*.destroy', '*MODULENAME*: Remove the specified resource from storage');
+
+    }
+}

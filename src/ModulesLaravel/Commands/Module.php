@@ -57,9 +57,11 @@ class Module extends Command
         $this->call('module:make-request'               , ['name' => $nome . 'Request'              , 'module' => $nome]);
         $this->call('module:make-transformer'           , ['name' => $nome . 'Transformer'          , 'module' => $nome]);
         $this->call('module:make-service-provider'      , ['name' => $nome . 'ServiceProvider'      , 'module' => $nome]);
+        $this->call('module:make-route=service-provider', ['name' => 'RouteServiceProvider'         , 'module' => $nome]);
         $this->call('module:make-router'                , ['module' => $nome]);
         $this->call('module:make-migration'             , ['name' => $migration                     , 'module' => $nome]);
         $this->call('module:make-seeder'                , ['name' => $nome . 'TableSeeder'          , 'module' => $nome]);
+        $this->call('module:make-permission-seeder'     , ['name' => $nome . 'PermissionTableSeeder', 'context' => $nome, 'module' => $nome]);
         $this->call('module:make-views'                 , ['module' => $nome]);
 
         $this->info('The module ' . $nome . ' has been generated. Enjoy!');
