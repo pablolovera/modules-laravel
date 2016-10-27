@@ -8,20 +8,10 @@ use App\Modules\*MODULENAME*\Contracts\Services\*MODULENAME*ServiceContract;
 use App\Modules\*MODULENAME*\Entities\*MODULENAME*Entity;
 use App\Modules\*MODULENAME*\Repositories\*MODULENAME*Repository;
 use App\Modules\*MODULENAME*\Services\*MODULENAME*Service;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class *NAME* extends ServiceProvider
 {
-    /**
-     * This namespace is applied to your controller routes.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
-    protected $namespace = 'App\Modules\*MODULENAME*\Http\Controllers';
-
     /**
      * Register the service provider.
      *
@@ -29,60 +19,9 @@ class *NAME* extends ServiceProvider
      */
     public function register()
     {
-        $this->loadViewsFrom(app_path('Modules/*MODULENAME*/resources/views'), '*LOWERNAME*');
-
-        $this->map();
+        $this->loadViewsFrom(app_path('Modules/*MODULENAME*/Resources/views'), '*LOWERNAME*');
 
         $this->binding();
-    }
-
-    /**
-     * Define the routes for the application.
-     *
-     * @param  \Illuminate\Routing\Router  $router
-     * @return void
-     */
-    public function map()
-    {
-        $this->mapWebRoutes();
-
-        $this->mapApiRoutes();
-    }
-
-    /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
-    protected function mapWebRoutes()
-    {
-        Route::group([
-            'prefix'        => '*LOWERNAME*',
-            'middleware'    => ['web', 'auth'],
-            'namespace'     => $this->namespace,
-        ], function ($router) {
-            require app_path('Modules/*MODULENAME*/Routes/web.php');
-        });
-    }
-
-    /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
-    protected function mapApiRoutes()
-    {
-        Route::group([
-            'middleware'    => 'api',
-            'namespace'     => $this->namespace,
-            'prefix'        => 'api/*LOWERNAME*',
-        ], function ($router) {
-            require app_path('Modules/*MODULENAME*/Routes/api.php');
-        });
     }
 
     /**
